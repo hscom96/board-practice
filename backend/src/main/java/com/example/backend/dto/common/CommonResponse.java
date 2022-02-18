@@ -11,9 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class CommonResponse<T> {
+
+    T data;
     private int code;
     private String message;
-    T data;
 
     public CommonResponse(ResponseCode responseCode) {
         this.code = responseCode.getCode();
