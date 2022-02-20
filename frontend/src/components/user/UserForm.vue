@@ -14,7 +14,7 @@
       v-if="type === 'Login'"
       class="move-signup">
       계정이 아직 없으신가요?
-      <span @click="$router.push('/')">회원가입</span>
+      <span @click="$router.push({ name: 'Signup' })">회원가입</span>
     </div>
   </div>
 </template>
