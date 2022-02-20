@@ -1,6 +1,6 @@
 <template>
   <div class="login-form">
-    <div class="input-group">
+    <div class="input-group login">
       <div class="input-box">
         <div :class="[isChecked.username ? 'checked' : '', 'input']">
           <i class="fa-solid fa-user-astronaut"></i>
@@ -100,57 +100,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.input-group {
-  margin-top: 20px;
-  .input-box {
-    position: relative;
-    .input {
-      box-sizing: border-box;
-      width: 300px !important;
-      height: 40px;
-
-      margin-top: 20px;
-      background-color: #f1f1f1;
-      color: $color-darkgrey;
-      border-bottom: 2px solid $color-grey;
-      padding-left: 20px;
-      padding-right: 20px;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      &.checked {
-        border-bottom: 2px solid $color-primary;
-      }
-
-      &:focus-within {
-        border-bottom: 2px solid $color-primary;
-      }
-
-      i {
-        font-size: 20px;
-        color: $color-grey;
-      }
-
-      input {
-        width: 100%;
-        height: 20px;
-        font-size: 1rem;
-        background: none;
-        box-shadow: none;
-        border: none;
-        outline: none;
-        transition: none;
-      }
-    }
-    .error-text {
-      margin-top: 3px;
-      padding-left: 20px;
-      color: $color-grey;
-      font-size: .8rem;
-      font-weight: 200;
-    }
-  }
-}
+  @import "./user.scss";
 </style>

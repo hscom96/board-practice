@@ -1,6 +1,6 @@
 <template>
-  <div class="login-form">
-    <div class="input-group">
+  <div class="signup-form">
+    <div class="input-group signup">
       <div class="input-box">
         <div :class="[isChecked.name ? 'checked' : '', 'input']">
           <input 
@@ -165,68 +165,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  margin-top: 40px;
-
-  .input-box {
-    position: relative;
-
-    label {
-      position: absolute;
-      display: inline;
-      top: -15px; 
-      font-size: 12px; 
-      color: $color-darkgrey;
-      pointer-events:none;
-    }
-
-    .input {
-      box-sizing: border-box;
-
-      width: 300px !important;
-      height: 40px;
-
-      background-color: #f1f1f1;
-      color: $color-darkgrey;
-      border-bottom: 2px solid $color-grey;
-      padding-left: 20px;
-      padding-right: 20px;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      &:focus-within,
-      &.checked {
-        border-bottom: 2px solid $color-primary;
-      }
-
-      i {
-        font-size: 20px;
-        color: $color-grey;
-      }
-
-      input {
-        width: 100%;
-        height: 20px;
-        font-size: 1rem;
-        background: none;
-        box-shadow: none;
-        border: none;
-        outline: none;
-        transition: none;
-      }
-    }
-    .error-text {
-      margin-top: 3px;
-      padding-left: 20px;
-      color: $color-grey;
-      font-size: .8rem;
-      font-weight: 200;
-    }
-  }
-}
+  @import "./user.scss";
 </style>
