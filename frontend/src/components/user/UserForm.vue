@@ -27,10 +27,13 @@ export default {
       btnStatus: false,
     }
   },
-  created() {
-    if (this.$route.name === 'Login') {
-      this.type = '로그인'
+  watch: {
+    '$route'() {
+      this.type = this.$route.name
     }
+  },
+  created() {
+    this.type = this.$route.name
   },
   methods: {
     toggleButton(val) {
