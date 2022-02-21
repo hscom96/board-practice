@@ -12,34 +12,34 @@
       <main>
         <div
           v-for="article in articleList"
-          :key="article.id"
+          :key="article.article_id"
           class="article">
           <div class="info">
             <div class="title">
               <div class="name">
-                {{ article.text }}
+                {{ article.title }}
               </div>
-              <div :class="[article.label ? 'label-buy' : 'label-sell', 'label']">
-                {{ article.label ? "구매" : "판매" }}
+              <div :class="[article.label === '구매' ? 'label-buy' : 'label-sell', 'label']">
+                {{ article.label === '구매' ? '구매' : '판매' }}
               </div>
             </div>
             <div class="upload-by">
-              {{ article.uploadBy }}
+              {{ article.created_by }}
             </div>
           </div>
 
           <div class="summary">
             <div class="time">
-              {{ article.uploadTime }}
+              {{ article.created_at }}
             </div>
             <div class="count">
               <div class="like">
                 <i class="fa-brands fa-gratipay"></i>
-                <span>{{ article.likeCount }}</span>
+                <span>{{ totalLikeCount(article) }}</span>
               </div>
               <div class="comment">
                 <i class="fa-solid fa-message"></i>
-                <span>{{ article.commentCount }}</span>
+                <span>{{ article.comment_cnt }}</span>
               </div>
             </div>
           </div>
@@ -47,7 +47,9 @@
       </main>
 
       <footer>
-        <button class="more">
+        <button
+          class="more"
+          @click="addArticleList">
           <Loading v-if="isLoading" />
           <span v-else>더보기</span>
         </button>
@@ -58,58 +60,43 @@
 
 <script>
 import Loading from './loading.vue'
+import requestArticleList from '../../utils/article'
 
 export default {
   components: { Loading },
   data() {
     return {
-      page: 0,
-      pageSize: 10,
-      articleList: []
+      isLoading: false,
+      articleList: [],
+      requestPage: 0,
+      requestSize: 5,
     }
   },
-  computed: {
-    isLoading() {
-      return true
-    }
-  },
-  async mounted() {
-    await this.init()
+  mounted() {
+    this.init()
   },
   methods: {
-    async init() {
-      const dummyData = [{
-          id: 0,
-          text: '아이패드 팔아요 (실사용 6달, 생활 스크래치 있음)',
-          label: 0,
-          uploadBy: '화내는 고길동',
-          uploadTime: '2022.02.16 15:22',
-          likeCount: 11,
-          commentCount: 12
-        },
-        {
-          id: 1,
-          text: '아이패드 팔아요2 (실사용 6달, 생활 스크래치 있음)',
-          label: 1,
-          uploadBy: '화내는 고길동2',
-          uploadTime: '2022.02.16 15:23',
-          likeCount: 21,
-          commentCount: 22
-        },
-        {
-          id: 2,
-          text: '아이패드 팔아요3 (실사용 6달, 생활 스크래치 있음)',
-          label: 0,
-          uploadBy: '화내는 고길동3',
-          uploadTime: '2022.02.16 15:33',
-          likeCount: 31,
-          commentCount: 32
-      }]
-      
-      this.articleList = [...dummyData]
+    init() {
+      this.addArticleList()
+    },
+    async addArticleList() {
+      try {
+        this.isLoading = true
+        
+        const { value: { content }} = await requestArticleList(this.requestPage, this.requestSize)
+        this.articleList = [...this.articleList, ...content]
+        this.requestPage++
+      }
+      catch(error) {
+        alert(error)
+      } finally {
+        this.isLoading = false
+      }
+    },
+    totalLikeCount(article) {
+      const { like_cnt, sad_cnt, upset_cnt } = article
+      return like_cnt + sad_cnt + upset_cnt
     }
-
-    
   }
 }
 </script>
@@ -117,18 +104,18 @@ export default {
 <style lang="scss" scoped>
 .article-list {
   background-color: #F7F8F9;
-  min-height: 90vh;
-  padding-top: 50px;
-  position: relative;
-  color: $color-darkgrey;
+    min-height: 90vh;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    color: #495057;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 
   .inner {
     background-color: #FFFFFF;
     width: 750px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
     border-radius: 8px;
     box-shadow: 1px 1px 1px rgba(180, 180, 180, 0.25);
   
@@ -239,12 +226,8 @@ export default {
         border-radius: 0 0 8px 8px;
         cursor: pointer;
         transform: translateY(-1px);
-
-
       }
     }
   }
 }
-
-
 </style>
