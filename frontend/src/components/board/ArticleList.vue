@@ -48,7 +48,8 @@
 
       <footer>
         <button class="more">
-          더보기
+          <Loading v-if="isLoading" />
+          <span v-else>더보기</span>
         </button>
       </footer>
     </div>
@@ -56,11 +57,28 @@
 </template>
 
 <script>
+import Loading from './loading.vue'
+
 export default {
+  components: { Loading },
   data() {
     return {
-      articleList: [
-        {
+      page: 0,
+      pageSize: 10,
+      articleList: []
+    }
+  },
+  computed: {
+    isLoading() {
+      return true
+    }
+  },
+  async mounted() {
+    await this.init()
+  },
+  methods: {
+    async init() {
+      const dummyData = [{
           id: 0,
           text: '아이패드 팔아요 (실사용 6달, 생활 스크래치 있음)',
           label: 0,
@@ -86,9 +104,12 @@ export default {
           uploadTime: '2022.02.16 15:33',
           likeCount: 31,
           commentCount: 32
-        },
-      ]
+      }]
+      
+      this.articleList = [...dummyData]
     }
+
+    
   }
 }
 </script>
@@ -218,8 +239,12 @@ export default {
         border-radius: 0 0 8px 8px;
         cursor: pointer;
         transform: translateY(-1px);
+
+
       }
     }
   }
 }
+
+
 </style>
