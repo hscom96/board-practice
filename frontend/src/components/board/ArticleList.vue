@@ -80,6 +80,10 @@ export default {
       this.addArticleList()
     },
     async addArticleList() {
+      if(this.isLoading) {
+        return
+      }
+
       try {
         this.isLoading = true
         
