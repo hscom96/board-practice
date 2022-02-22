@@ -83,7 +83,7 @@ export default {
     async getArticleDetail() {
       try {
         const articleDetail = await requestArticleDetail(this.$route.params.articleId)
-        this.articleInfo = { ...articleDetail.articleInfo }
+        this.articleInfo = { ...articleDetail }
       }
       catch(error) {
         alert(error)
