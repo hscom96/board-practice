@@ -11,7 +11,7 @@ export default async (articleId) => {
           'comment_id' : 0,
           'parent_id' : -1,
           'article_id' : articleId,
-          'content' : '첫번째 댓글',
+          'content' : '첫번째 댓글 수정되지 않음',
           'created_at': '2022-02-16 15:23:11',
           'created_by': '홍길동1',
           'created_by_id': 0, 
@@ -79,6 +79,18 @@ export default async (articleId) => {
           'modified_by': '홍길동3',
           'modified_by_id': 5,
         },
+        {
+          'comment_id' : 6,
+          'parent_id' : 4,
+          'article_id' : articleId,
+          'content' : '2-1 댓글 수정됨',
+          'created_at': '2022-02-17 15:55:11',
+          'created_by': '홍길동2-1',
+          'created_by_id': 6, 
+          'modified_at': '2022-02-17 18:34:12',
+          'modified_by': '홍길동2-1',
+          'modified_by_id': 6,
+        },
       ]
     }
   }
@@ -90,13 +102,13 @@ export default async (articleId) => {
     const { parent_id } = comment
     if(parent_id === -1) {
       comments.push({ 
-        comment,
+        value: comment,
         subComments: []
       })
     }
     else {
-      const idx = comments.findIndex(d => d.comment.comment_id === parent_id)
-      comments[idx].subComments.push(comment)
+      const idx = comments.findIndex(d => d.value.comment_id === parent_id)
+      comments[idx].subComments.push({ value: comment })
     }
   }
   

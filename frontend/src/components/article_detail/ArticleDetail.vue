@@ -90,7 +90,7 @@ export default {
       }
     },
     isModified(created_at, modified_at) {
-      return created_at === modified_at
+      return created_at !== modified_at
     }
   },
 }
@@ -151,6 +151,10 @@ export default {
           display: flex;
           align-items: center;
           gap: 10px;
+
+          i {
+            cursor: pointer;
+          }
         }
       }
 
@@ -169,8 +173,8 @@ export default {
             font-weight: 700;
 
             .user-icon {
-              width: 20px;
-              height: 20px;
+              width: 16px;
+              height: 16px;
               background-color: $color-light;
               border-radius: 50%;
               display: flex;
