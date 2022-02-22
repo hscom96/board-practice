@@ -49,7 +49,14 @@ module.exports = (env, options) => {
               }
             }
           ]
-        }
+        },
+        {
+          test: /\.svg$/,
+          use: [
+            'vue-loader',
+            'vue-svg-loader',
+          ],
+        },
       ]
     },
     plugins: [
