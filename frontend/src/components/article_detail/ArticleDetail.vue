@@ -100,7 +100,6 @@ export default {
 .article-detail {
   background-color: #FFFFFF;
   padding-top: 50px;
-  padding-bottom: 50px;
   color: #495057;
   display: flex;
   flex-direction: column;
@@ -113,7 +112,7 @@ export default {
     .article-wrapper {
       header {
         padding: 5px;
-        border-bottom: 2px solid $color-light;
+        border-bottom: 1px solid $color-light;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -204,6 +203,8 @@ export default {
       }
 
       footer {
+        padding-bottom: 10px;
+        border-bottom: 1px solid $color-light;
         display: flex;
         justify-content: flex-end;
         gap: 20px;
