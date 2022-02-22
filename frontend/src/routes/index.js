@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '~/views/Home'
 import Login from '~/views/user/Login'
 import Signup from '~/views/user/Signup'
-import Article from '~/views/article/Article'
+import ArticleDetail from '~/views/article/ArticleDetail'
 
 export default createRouter({
   history: createWebHistory(),
@@ -24,8 +24,8 @@ export default createRouter({
     },
     {
       path: '/article/:articleId',
-      name: 'Article',
-      component: Article
+      name: 'ArticleDetail',
+      component: ArticleDetail
     },
   ]
 })
