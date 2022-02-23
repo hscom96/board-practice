@@ -18,7 +18,7 @@ public class AuthService {
 
     public UserDto login(LoginRequest loginRequest) {
         User user = userRepository.findByUserNameAndPassword(loginRequest.getUserName(), loginRequest.getPassword())
-            .orElseThrow(() -> {throw new CustomException(ResponseCode.PARAM_INVALID);});
+            .orElseThrow(() -> {throw new CustomException(ResponseCode.USER_NOT_FOUND);});
         return UserDto.from(user);
     }
 
@@ -27,3 +27,4 @@ public class AuthService {
         return UserDto.from(user);
     }
 }
+
