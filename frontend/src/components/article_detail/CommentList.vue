@@ -90,6 +90,8 @@ export default {
         },
         subComments: []
       })
+
+      this.inputComment = ''
     }
   },
 }
