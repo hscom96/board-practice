@@ -3,7 +3,9 @@
     <div class="inner">
       <header>
         <h1>중고거래</h1>
-        <button class="btn-write">
+        <button
+          class="btn-write"
+          @click="onClickWriteButton">
           <i class="fa-solid fa-pencil"></i>
           글쓰기
         </button>
@@ -72,6 +74,9 @@ export default {
         this.isLoading = false
       }
     },
+    onClickWriteButton() {
+      this.$router.push('/write')
+    }
   }
 }
 </script>
