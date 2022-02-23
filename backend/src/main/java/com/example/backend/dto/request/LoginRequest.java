@@ -1,5 +1,6 @@
 package com.example.backend.dto.request;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,9 +9,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class LoginRequest {
 
-    @NotEmpty(message = "name is empty")
+    @NotBlank(message = "name is empty")
     private String userName;
 
-    @NotEmpty(message = "password is empty")
+    @NotBlank(message = "password is empty")
     private String password;
 }
