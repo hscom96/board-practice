@@ -23,10 +23,10 @@
       </div>
 
       <div v-if="comment.subComments && comment.subComments.length">
-        <comment
-          v-for="comment in comment.subComments"
-          :key="comment.comment_id" 
-          :comment="comment"
+        <Comment
+          v-for="subComment in comment.subComments"
+          :key="subComment.comment_id" 
+          :comment="subComment"
           :sub="true"
           class="sub-comment" />
       </div>
@@ -36,7 +36,7 @@
 
 <script>
 export default {
-  name: 'comment',
+  name: 'Comment',
   props: {
     comment: Object,
     sub: Boolean
