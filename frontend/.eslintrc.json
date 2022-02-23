@@ -26,6 +26,7 @@
       "math": "always"
     }],
     "vue/comment-directive": "off",
-    "vue/multi-word-component-names": "off"
+    "vue/multi-word-component-names": "off",
+    "vue/require-default-prop": "off"
   }
 }
