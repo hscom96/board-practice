@@ -22,8 +22,9 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<CommonResponse<?>> login(@RequestBody LoginRequest loginRequest) {
-        return ResponseEntity.ok(new CommonResponse<>(ResponseCode.SUCCESS, null));
+    public ResponseEntity<CommonResponse<UserDto>> login(@RequestBody @Valid LoginRequest loginRequest) {
+        UserDto userDto = authService.login(loginRequest);
+        return ResponseEntity.ok(new CommonResponse<>(ResponseCode.SUCCESS, userDto));
     }
 
     @PostMapping("/register")
