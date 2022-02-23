@@ -14,8 +14,13 @@
       </div>
 
       <div class="write-comment-wrapper">
-        <textarea class="write-comment"></textarea>
-        <button class="btn-add-comment">
+        <textarea
+          v-model="inputComment"
+          class="write-comment"
+          placeholder="댓글을 입력하세요"></textarea>
+        <button
+          class="btn-add-comment"
+          @click="onClickWriteComment">
           댓글 등록
         </button>
       </div>
@@ -32,6 +37,7 @@ export default {
   data() {
     return {
       comments: [],
+      inputComment: '',
     }
   },
   computed: {
@@ -57,6 +63,33 @@ export default {
     },
     isModified(created_at, modified_at) {
       return created_at !== modified_at
+    },
+    onClickWriteComment() {
+      if(this.inputComment.length <= 0) {
+        alert('댓글을 입력해주세요')
+        return
+      }
+      
+      this.addComment(this.inputComment)
+    },
+    addComment(text) {
+      // Todo: Request -> result = Response -> this.comment.push({ value: result, subComments: [] })
+
+      this.comments.push({ 
+        value: {
+          'comment_id' : Math.floor(Math.random()*10000),
+          'parent_id' : -1,
+          'article_id' : 0,
+          'content' : text,
+          'created_at': '2022-02-17 22:22:22',
+          'created_by': '새 댓글 작성자',
+          'created_by_id': 100, 
+          'modified_at': '2022-02-22 22:22:22',
+          'modified_by': '새 댓글 작성자',
+          'modified_by_id': 100,
+        },
+        subComments: []
+      })
     }
   },
 }
