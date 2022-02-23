@@ -1,11 +1,10 @@
 package com.example.backend.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import javax.persistence.Entity;
 
 @Entity
 public class Comment extends AuditProperties {
@@ -13,7 +12,7 @@ public class Comment extends AuditProperties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id", nullable = false)
-    private long commentId;
+    private Long commentId;
 
     @Column(name = "content", nullable = false)
     private String content;

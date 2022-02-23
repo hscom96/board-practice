@@ -21,15 +21,15 @@ public class User extends AuditProperties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
-    private long userId;
+    private Long userId;
 
-    @Column(name ="name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name ="user_role", nullable = false)
+    @Column(name = "user_role", nullable = false)
     private String userRole;
 
-    @Column(name ="password", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "created_by")
@@ -38,7 +38,7 @@ public class User extends AuditProperties {
     @Column(name = "modified_by")
     private String modifiedBy;
 
-    @Column(name="last_login_at",nullable = false)
+    @Column(name = "last_login_at", nullable = false)
     private LocalDateTime lastLoginAt;
 
 }
