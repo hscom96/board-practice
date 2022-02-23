@@ -118,21 +118,11 @@ export default {
       margin-bottom: 10px;
     }
 
-    .comments {
-      .parent-comment {
-        border-bottom: 1px solid $color-light;
-
-        &.has-sub,
-        &:last-of-type {
-          border: none;
-        }
-      }
-    }
-
     .write-comment-wrapper {
       width: 100%;
       display: flex;
       flex-direction: column;
+      transform: translateY(-1px);
 
       .write-comment {
         width: 100%;
