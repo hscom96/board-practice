@@ -1,5 +1,6 @@
 package com.example.backend.common.constants;
 
+import javax.validation.constraints.Pattern;
 import lombok.Getter;
 
 @Getter
@@ -12,7 +13,8 @@ public enum ResponseCode {
     /* 기타 오류 메세지 정의 끝*/
 
     /* 회원 관련 오류 정의 */
-    USER_NOT_FOUND(2000, "해당 회원을 찾을 수 없습니다.");
+    USER_NOT_FOUND(2000, "해당 회원을 찾을 수 없습니다."),
+    PWD_FORM_ERROR(2001, "비밀번호는 영문 대,소문자와 숫자, 특수기호가 적어도 1개 이상씩 포함된 8자 ~ 20자의 비밀번호여야 합니다.");
     /* 회원 관련 오류 정의 끝*/
 
     private final int code;
