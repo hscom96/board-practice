@@ -63,11 +63,9 @@ public class User extends AuditProperties {
         this.lastLoginAt = lastLoginAt;
     }
 
-
     private void verifyPasswordForm(String password) {
         Matcher matcher = PWD_PATTERN.matcher(password);
         if(!matcher.find())
             throw new CustomException(ResponseCode.PWD_FORM_ERROR);
-        System.out.println("hihi");
     }
 }
