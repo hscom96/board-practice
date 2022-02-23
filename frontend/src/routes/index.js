@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '~/views/Home'
 import Login from '~/views/user/Login'
 import Signup from '~/views/user/Signup'
+import Write from '~/views/Write'
 import ArticleDetail from '~/views/article/ArticleDetail'
 import ArticleList from '~/views/article/ArticleList'
 
@@ -22,6 +23,11 @@ export default createRouter({
       path: '/signup',
       name: 'Signup',
       component: Signup
+    },
+    {
+      path: '/write',
+      name: 'Write',
+      component: Write
     },
     {
       path: '/article',
