@@ -3,6 +3,7 @@ import Home from '~/views/Home'
 import Login from '~/views/user/Login'
 import Signup from '~/views/user/Signup'
 import ArticleDetail from '~/views/article/ArticleDetail'
+import ArticleList from '~/views/article/ArticleList'
 
 export default createRouter({
   history: createWebHistory(),
@@ -21,6 +22,11 @@ export default createRouter({
       path: '/signup',
       name: 'Signup',
       component: Signup
+    },
+    {
+      path: '/article',
+      name: 'ArticleList',
+      component: ArticleList
     },
     {
       path: '/article/:articleId',
