@@ -12,7 +12,9 @@
       </div>
 
       <div class="gnb-profile">
-        <a href="javascript:void(0)">
+        <a
+          class="user-icon"
+          href="javascript:void(0)">
           <i class="profile-icon fa-solid fa-user"></i>
         </a>
         <h3 class="profile-name">
@@ -46,8 +48,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~/scss/_variables";
-
 header {
   background-color: #fff;
   border-bottom: 1px solid $color-light;
@@ -107,12 +107,20 @@ header {
       bottom: 0;
       margin: auto 0;
       font-size: 14px;
-
-      a {
+      
+      .user-icon {
         text-decoration: none;
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+        background-color: $color-light;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         .profile-icon {
-          margin: 0 10px;
+          color: $color-darkgrey;
         }
       }
 
