@@ -42,6 +42,6 @@ public class User extends AuditProperties {
     private String modifiedBy;
 
     @Column(name = "last_login_at", nullable = false)
-    private LocalDateTime lastLoginAt;
+    private LocalDateTime lastLoginAt = LocalDateTime.now();
 
 }

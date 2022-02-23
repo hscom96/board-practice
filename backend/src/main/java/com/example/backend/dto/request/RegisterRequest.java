@@ -1,6 +1,7 @@
 package com.example.backend.dto.request;
 
 import com.example.backend.model.User;
+import java.time.LocalDateTime;
 import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +23,9 @@ public class RegisterRequest {
         return User.builder()
             .name(name)
             .userName(userName)
-            .password(password).build();
+            .password(password)
+            .lastLoginAt(LocalDateTime.now())
+            // TODO: user Role enum 생성
+            .userRole("user").build();
     }
 }
