@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 
+
 @IdClass(ReactionId.class)
 @Entity
 public class Reaction extends AuditProperties {
