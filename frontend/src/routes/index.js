@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '~/views/Home'
 import Login from '~/views/user/Login'
 import Signup from '~/views/user/Signup'
+import ArticleDetail from '~/views/article/ArticleDetail'
 
 export default createRouter({
   history: createWebHistory(),
@@ -20,6 +21,11 @@ export default createRouter({
       path: '/signup',
       name: 'Signup',
       component: Signup
+    },
+    {
+      path: '/article/:articleId',
+      name: 'ArticleDetail',
+      component: ArticleDetail
     },
   ]
 })
