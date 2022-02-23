@@ -26,6 +26,9 @@ public class User extends AuditProperties {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "user_name", nullable = false)
+    private String userName;
+
     @Column(name = "user_role", nullable = false)
     private String userRole;
 
