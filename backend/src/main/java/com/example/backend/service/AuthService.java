@@ -9,6 +9,7 @@ import com.example.backend.model.User;
 import com.example.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -16,6 +17,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
 
+    @Transactional(readOnly = true)
     public UserDto login(LoginRequest loginRequest) {
         User user = userRepository.findByUserNameAndPassword(loginRequest.getUserName(), loginRequest.getPassword())
             .orElseThrow(() -> {throw new CustomException(ResponseCode.USER_NOT_FOUND);});
