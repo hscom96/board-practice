@@ -55,7 +55,9 @@
             </span>
           </div>
 
-          <button class="btn-list">
+          <button
+            class="btn-list"
+            @click="onClickArticleListButton">
             목록
           </button>
         </footer>
@@ -91,6 +93,9 @@ export default {
     },
     isModified(created_at, modified_at) {
       return created_at !== modified_at
+    },
+    onClickArticleListButton() {
+      this.$router.push('/article')
     }
   },
 }
