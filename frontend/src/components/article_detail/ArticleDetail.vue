@@ -30,6 +30,11 @@
           </div>
 
           <div class="content-wrapper">
+            <div class="img-wrapper">
+              <img
+                src="https://picsum.photos/300/200"
+                alt="article image" />
+            </div>
             <pre>
               {{ articleInfo.content }}
             </pre>
@@ -202,6 +207,14 @@ export default {
           margin: 20px auto;
           width: 95%;
           color: black;
+
+          .img-wrapper {
+            padding: 10px 0;
+            img {
+              display: block;
+              margin: 0 auto;
+            }
+          }
 
           pre {
             font-size: 12px;
