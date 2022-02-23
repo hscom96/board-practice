@@ -1,6 +1,8 @@
 <template>
   <div class="article-item">
-    <div class="info">
+    <div
+      class="info"
+      @click="onClickArticleItem">
       <div class="title">
         <div class="name">
           {{ article.title }}
@@ -42,6 +44,9 @@ export default {
     totalLikeCount(article) {
       const { like_cnt, sad_cnt, upset_cnt } = article
       return like_cnt + sad_cnt + upset_cnt
+    },
+    onClickArticleItem() {
+      this.$router.push(`/article/${this.article.article_id}`)
     }
   }
 }

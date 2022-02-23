@@ -26,17 +26,17 @@ export default async (page, size) => {
 
   for(let i = 0; i < size; i++) {
     const dummy = {
-      'article_id': page+1,
+      'article_id': page*size + i,
       'label': Math.floor(Math.random()*2) ? '판매' : '구매',
-      'title': `아이패드 팔아요${page+1} (실사용 6달, 생활 스크래치 있음)`,
+      'title': `아이패드 팔아요${page*size + i} (실사용 6달, 생활 스크래치 있음)`,
       'content': '내용 없음',
       'image': '이미지 base64',
       'created_at': '2022-02-16 15:23:11',
-      'created_by': `화내는 홍길동${page+1}`,
-      'created_by_id': page+1,
+      'created_by': `화내는 홍길동${page*size + i}`,
+      'created_by_id': page*size + i,
       'modified_at': '2022-02-16 15:23:11',
-      'modified_by': `화내는 홍길동${page+1}`,
-      'modified_by_id': page+1,
+      'modified_by': `화내는 홍길동${page*size + i}`,
+      'modified_by_id': page*size + i,
       'view_count': Math.floor(Math.random() * 50),
       'like_cnt': Math.floor(Math.random() * 10),
       'sad_cnt': Math.floor(Math.random() * 20),

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import requestArticleList from '../../utils/article'
+import requestArticleList from '../../utils/article_list'
 import Loading from './loading.vue'
 import ArticleItem from './ArticleItem'
 
