@@ -1,14 +1,42 @@
 <template>
   <div class="toolbox">
-    <i class="fa-solid fa-reply"></i>
-    <i class="fa-solid fa-pencil"></i>
-    <i class="fa-solid fa-trash"></i>
+    <i
+      class="fa-solid fa-reply"
+      @click="onClickReplyButton"></i>
+    <i
+      class="fa-solid fa-pencil"
+      @click="onClickEditButton"></i>
+    <i
+      class="fa-solid fa-trash"
+      @click="onClickDeleteButton"></i>
   </div>
 </template>
 
 <script>
 export default {
+  name: 'Toolbox',
+  props: {
+    comment: Object
+  },
+  methods: {
+    onClickReplyButton() {
+      // Todo: [POST] article/{articleId}/comment?parentId={parentId}
 
+      alert(`Reply : [POST] article/${this.comment.article_id}/comment?parentId=${this.comment.parent_id}`)
+
+      // Todo: 이벤트 발생 -> 부모 요소의 comments: [] 상태 조작 
+    },
+    onClickEditButton() {
+      // Todo: [PUT] article/{articleId}/comment/{commentId}
+
+      alert(`Edit : [PUT] article/${this.comment.article_id}/comment/${this.comment.comment_id}`)
+    },
+    onClickDeleteButton() {
+      // Todo: [DELETE] article/{articleId}/comment/{commentId}
+
+      alert(`Delete : [DELETE] article/${this.comment.article_id}/comment/${this.comment.comment_id}`)
+    },
+  }
 }
 </script>
 

@@ -28,7 +28,9 @@
         </div>
       </div>
 
-      <Toolbox v-show="isHover" />
+      <Toolbox
+        v-show="isHover"
+        :comment="comment.value" />
     </div>
     <div v-if="comment.subComments && comment.subComments.length">
       <Comment
