@@ -70,7 +70,7 @@ export default {
   },
   computed: {
     isNotSub() {
-      return this.comment.parent_id === -1
+      return this.comment.parentId === -1
     },
     ...mapState('user', [
       'userId'

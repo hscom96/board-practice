@@ -5,7 +5,7 @@ const SERVER_URL = 'http://localhost:8282'
 export default {
   getComments(articleId) {
     return axios({
-      url: SERVER_URL + `/article/${articleId}/comment?page=1&size=100`,
+      url: SERVER_URL + `/article/${articleId}/comment?page=0&size=100`,
       method: 'get'
     })
   },

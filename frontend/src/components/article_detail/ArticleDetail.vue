@@ -92,7 +92,6 @@ export default {
       try {
         const result = await requestArticleDetail(this.$route.params.articleId)
                               .then(result => result.data.data)
-        console.log(result)
         this.articleInfo = { ...result }
       }
       catch(error) {
