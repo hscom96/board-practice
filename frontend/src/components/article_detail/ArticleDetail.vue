@@ -7,7 +7,9 @@
           <div :class="[articleInfo.label === '구매' ? 'label-buy' : 'label-sell', 'label']">
             {{ articleInfo.label === '구매' ? '구매' : '판매' }}
           </div>
-          <div class="icon-wrapper">
+          <div
+            v-if="isSameId"
+            class="icon-wrapper">
             <i class="fa-solid fa-pencil"></i>
             <i class="fa-solid fa-trash"></i>
           </div>
@@ -74,11 +76,20 @@
 <script>
 import requestArticleDetail from '~/utils/api/article_detail'
 import makeTimeString from '~/utils/convert_time'
+import { mapState } from 'vuex'
 
 export default {
   data() {
     return {
       articleInfo: {},
+    }
+  },
+  computed: {
+    ...mapState('user', [
+      'userId'
+    ]),
+    isSameId() {
+      return this.articleInfo.created_by_id === this.userId
     }
   },
   mounted() {
