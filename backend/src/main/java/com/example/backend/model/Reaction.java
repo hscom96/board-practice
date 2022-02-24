@@ -4,8 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import lombok.Builder;
+import lombok.Getter;
 
 
+@Getter
+@Builder
 @IdClass(ReactionId.class)
 @Entity
 public class Reaction extends AuditProperties {
@@ -16,9 +20,14 @@ public class Reaction extends AuditProperties {
 
     @Id
     @Column(name = "article_id")
-    private String articleId;
+    private Long articleId;
 
     @Id
     @Column(name = "user_id")
-    private String userId;
+    private Long userId;
+
+    @Column(name = "created_by")
+    private String createdBy;
 }
+
+

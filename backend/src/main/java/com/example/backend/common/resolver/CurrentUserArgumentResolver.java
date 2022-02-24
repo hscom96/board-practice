@@ -1,5 +1,7 @@
 package com.example.backend.common.resolver;
 
+import com.example.backend.common.constants.ResponseCode;
+import com.example.backend.common.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -23,7 +25,10 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
         NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         String userId = webRequest.getHeader(USER_ID);
-        log.info("--- [currentUser] userId : {}", userId);
-        return userId;
+        if(userId == null || userId.isBlank()){
+            throw new CustomException(ResponseCode.USER_NOT_FOUND);
+        }
+        log.info("--------- [currentUser] userId : {}", userId);
+        return Long.parseLong(userId);
     }
 }

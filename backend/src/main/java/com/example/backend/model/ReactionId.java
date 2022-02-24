@@ -7,9 +7,9 @@ public class ReactionId implements Serializable {
 
     private String type;
 
-    private String articleId;
+    private Long articleId;
 
-    private String userId;
+    private Long userId;
 
     @Override
     public boolean equals(Object o) {

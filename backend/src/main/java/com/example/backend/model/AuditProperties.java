@@ -25,9 +25,9 @@ public class AuditProperties {
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 
-    @Column(name = "created_by")
-    private String createdBy;
+    @Column(name = "created_by_id")
+    private Long createdById;
 
-    @Column(name = "modified_by")
-    private String modifiedBy;
+    @Column(name = "modified_by_id")
+    private Long modifiedById;
 }
