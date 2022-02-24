@@ -8,8 +8,6 @@ import com.example.backend.dto.common.PagingResponse;
 import com.example.backend.dto.request.ArticleWriteRequest;
 import com.example.backend.model.Article;
 import com.example.backend.repository.ArticleRepository;
-import java.awt.print.Pageable;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,15 +26,18 @@ public class ArticleService {
 
     public ArticleDto update(Long articleId, ArticleUpdateRequest articleWriteRequest,
         Long currentUserId) {
-        Article article = articleRepository.findById(articleId).orElseThrow(() -> {
-            throw new CustomException(ResponseCode.POST_NOT_FOUND);
-        });
-        if (!currentUserId.equals(article.getArticleId())) {
-            throw new CustomException(ResponseCode.USER_NOT_GRANTED);
-        }
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> {throw new CustomException(ResponseCode.POST_NOT_FOUND);});
+        validateUserId(currentUserId, article);
         article.update(articleWriteRequest.toEntity(currentUserId));
         Article updatedArticle = articleRepository.save(article);
         return ArticleDto.of(updatedArticle);
+    }
+
+    private void validateUserId(Long currentUserId, Article article) {
+        if (!currentUserId.equals(article.getArticleId())) {
+            throw new CustomException(ResponseCode.USER_NOT_GRANTED);
+        }
     }
 
     public ArticleDto getArticle(Long articleId){
