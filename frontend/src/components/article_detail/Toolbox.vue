@@ -98,31 +98,14 @@ export default {
         return
       }
 
-      // Todo: [POST] article/{articleId}/comment?parentId={parentId}
-      // alert(`Reply : [POST] article/${this.comment.value.article_id}/comment?parentId=${this.comment.value.comment_id}`)
       commentsApi.addComment(this.userId, this.$route.params.articleId, {
         content: this.replyText,
-        parentId: this.comment.comment_id
+        parentId: this.comment.commentId
       })
 
-      const data = { 
-        value: {
-          'comment_id' : Math.floor(Math.random()*10000),
-          'parent_id' : this.comment.comment_id,
-          'article_id' : 0,
-          'content' : this.replyText,
-          'created_at': '2022-02-17 22:22:22',
-          'created_by': '새 댓글 작성자',
-          'created_by_id': 100, 
-          'modified_at': '2022-02-22 22:22:22',
-          'modified_by': '새 댓글 작성자',
-          'modified_by_id': 100,
-        },
-        subComments: []
-      }
-
-      this.replyComment(data)
-      this.onClickReplyButton()
+      location.reload()
+      // this.replyComment(data)
+      // this.onClickReplyButton()
     },
     editComment() {
       if(this.editText.length <= 0) {
@@ -132,7 +115,7 @@ export default {
 
       // Todo: [PUT] article/{articleId}/comment/{commentId}
       // alert(`Edit : [PUT] article/${this.comment.article_id}/comment/${this.comment.comment_id}`)
-      commentsApi.editComment(this.userId, this.$route.params.articleId, this.comment.comment_id, {
+      commentsApi.editComment(this.userId, this.$route.params.articleId, this.comment.commentId, {
         content: this.editText,
       })
 

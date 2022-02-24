@@ -35,7 +35,7 @@
     <div v-if="comment.subComments && comment.subComments.length">
       <Comment
         v-for="subComment in comment.subComments"
-        :key="subComment.comment_id" 
+        :key="subComment.commentId" 
         :comment="subComment"
         :sub="true"
         class="sub-comment" />
@@ -59,8 +59,8 @@ export default {
     }
   },
   methods: {
-    isModified(created_at, modified_at) {
-      return created_at !== modified_at
+    isModified(createdAt, modifiedAt) {
+      return createdAt !== modifiedAt
     }
   }
 }
