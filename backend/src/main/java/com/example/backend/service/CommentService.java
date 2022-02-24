@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentService {
 
-    private static final int COUNT = 1;
+    private static final int COMMENT_COUNT = 1;
 
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
@@ -49,7 +49,7 @@ public class CommentService {
         Comment comment = commentCreateRequest.toEntity(articleId, currentUserId);
         commentRepository.save(comment);
 
-        article.setCommentCnt(article.getCommentCnt() + COUNT);
+        article.setCommentCnt(article.getCommentCnt() + COMMENT_COUNT);
         articleRepository.save(article);
 
         return CommentDto.from(comment, user);
@@ -89,7 +89,7 @@ public class CommentService {
 
         commentRepository.deleteById(deleteComment.getCommentId());
 
-        article.setCommentCnt(article.getCommentCnt() - COUNT);
+        article.setCommentCnt(article.getCommentCnt() - COMMENT_COUNT);
         articleRepository.save(article);
 
         return HttpStatus.OK;
