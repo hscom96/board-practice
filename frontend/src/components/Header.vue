@@ -1,16 +1,7 @@
 <template>
   <header>
     <div class="inner">
-      <div class="gnb-logo">
-        <a
-          href="/"
-          class="logo-image"></a>
-        <div class="logo-split"></div>
-        <h2 class="logo-text">
-          중고거래
-        </h2>
-      </div>
-
+      <Logo @click="$router.push('/')" />
       <div class="gnb-profile">
         <a
           class="user-icon"
@@ -26,7 +17,11 @@
 </template>
 
 <script>
+import Logo from './Logo'
 export default {
+  components: {
+    Logo
+  },
   data() {
     return {
       userInfo: {
@@ -56,45 +51,12 @@ header {
 
   .inner {
     width: 800px;
-    height: 70px;
+    height: 80px;
     margin: 0 auto;
     position: relative;
-
-    .gnb-logo {
-      width: 230px;
-      height: 46px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      margin: auto 0;
-
-      .logo-image {
-        display: block;
-        width: 94px;
-        height: 40px;
-        background-image: url(https://trusting-williams-8cacfb.netlify.app/images/globals_2x.png);
-        background-position: -162px 0;
-        background-size: 363px;
-        cursor: pointer;
-      }
-
-      .logo-split {
-        top: 10px;
-        width: 2px;
-        height: 44px;
-        background-color: $color-darkgrey;
-        content: "";
-      }
-
-      .logo-text {
-        font-size: 26px;
-        font-weight: 400;
-      }
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     .gnb-profile {
       height: 46px;

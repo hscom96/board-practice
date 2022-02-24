@@ -24,6 +24,8 @@ export default {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
+    
     .text {
       font-size: 30px;
       font-weight: 700;
