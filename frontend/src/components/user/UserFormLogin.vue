@@ -65,7 +65,7 @@ export default {
   computed: {
     userData() {
       return {
-        'user_name': this.username,
+        'userName': this.username,
         'password': this.password
       }
     }
