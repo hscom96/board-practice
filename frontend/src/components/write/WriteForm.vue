@@ -1,12 +1,19 @@
 <template>
   <div class="write-form">
     <header>
-      <h1>게시글 등록</h1>
-      <button
-        :class="[complete ? '' : 'disabled']"
-        @click="onCreate">
-        등록
-      </button>
+      <h1>게시글 {{ type }}</h1>
+      <div class="btns">
+        <button
+          class="cancel"
+          @click="$router.go(-1)">
+          취소
+        </button>
+        <button
+          :class="[complete ? '' : 'disabled']"
+          @click="onChange">
+          {{ type }}
+        </button>
+      </div>
     </header>
     <div class="input-box">
       <input
@@ -63,6 +70,8 @@ export default {
   },
   data() {
     return {
+      type: '등록',
+      articleId: null,
       title: '',
       label: '',
       content: '',
@@ -91,7 +100,25 @@ export default {
       this.checkForm()
     },
   },
+  async created() {
+    if (this.$route.name === 'Edit') {
+      this.type = '수정'
+      this.articleId = this.$route.params.id
+      const { data } = await articleApi.getArticleDetail(this.articleId)
+      this.title = data.data.title
+      this.content = data.data.content
+      this.label = data.data.label
+      this.image = data.data.image
+    }
+  },
   methods: {
+    onChange() {
+      if (this.type === '등록') {
+        this.onCreate()
+      } else {
+        this.onEdit()
+      }
+    },
     async onCreate() {
       const { data } = await articleApi.createArticle(this.articleData)
       if (data.code === 200) {
@@ -99,6 +126,19 @@ export default {
           name: 'ArticleDetail', 
           params: { 
             articleId: data.data.article_id
+          }
+        })
+      } else {
+        alert(data.message)
+      }
+    },
+    async onEdit() {
+      const { data } = await articleApi.updateArticle(this.articleId, this.articleData)
+      if (data.code === 200) {
+        this.$router.push({ 
+          name: 'ArticleDetail', 
+          params: { 
+            articleId: this.articleId
           }
         })
       } else {
@@ -167,6 +207,11 @@ export default {
         &.disabled {
           background-color: $color-grey;
           pointer-events: none;
+        }
+
+        &.cancel {
+          background-color: $color-grey;
+          margin-right: 10px;
         }
         
         &:hover {
