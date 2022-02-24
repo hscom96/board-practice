@@ -102,8 +102,9 @@ export default {
         content: this.replyText,
         parentId: this.comment.commentId
       })
-
-      location.reload()
+      .catch((error) => console.log(`댓글 등록 실패! :${error}`))
+      .then(() => alert('댓글이 등록됐습니다.'))
+      .then(() => location.reload())
     },
     editComment() {
       if(this.editText.length <= 0) {
@@ -114,13 +115,15 @@ export default {
       commentsApi.editComment(this.userId, this.$route.params.articleId, this.comment.commentId, {
         content: this.editText,
       })
-
-      location.reload()
+      .catch((error) => console.log(`댓글 수정 실패! :${error}`))
+      .then(() => alert('댓글이 수정됐습니다.'))
+      .then(() => location.reload())
     },
     onClickDeleteButton() {
       commentsApi.deleteComment(this.userId, this.$route.params.articleId, this.comment.commentId)
-
-      location.reload()
+      .catch((error) => console.log(`댓글 삭제 실패! :${error}`))
+      .then(() => alert('댓글이 삭제됐습니다.'))
+      .then(() => location.reload())
     },
   }
 }

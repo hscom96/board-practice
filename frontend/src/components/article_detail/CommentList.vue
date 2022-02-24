@@ -88,14 +88,11 @@ export default {
       commentsApi.addComment(this.userId, this.$route.params.articleId, {
         content: text,
         parentId: -1
-      }).then(result => result.data.data)
-
-      location.reload()
-      // this.addComment({ 
-      //   value: data,
-      //   subComments: []
-      // })
-      // this.inputComment = ''
+      })
+      .catch((error) => console.log(`댓글 등록 실패! :${error}`))
+      .then(result => result.data.data)
+      .then(() => alert('댓글이 등록됐습니다.'))
+      .then(() => location.reload())
     },
   },
 }
