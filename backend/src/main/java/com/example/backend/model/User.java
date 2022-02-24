@@ -43,9 +43,9 @@ public class User extends AuditProperties {
 
     @Builder
     public User(LocalDateTime createdAt, LocalDateTime modifiedAt, Long userId, String name,
-        String userName, String userRole, String password, String createdBy,
-        String modifiedBy, LocalDateTime lastLoginAt) {
-        super(createdAt, modifiedAt, createdBy, modifiedBy);
+        String userName, String userRole, String password, Long createdById,
+        Long modifiedById, LocalDateTime lastLoginAt) {
+        super(createdAt, modifiedAt, createdById, modifiedById);
         verifyPasswordForm(password);
         this.userId = userId;
         this.name = name;
