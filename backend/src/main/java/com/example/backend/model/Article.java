@@ -48,16 +48,6 @@ public class Article extends AuditProperties {
     @Column(name = "comment_cnt")
     private int commentCnt;
 
-    public void increaseReaction(String type) {
-        if ("upset".equalsIgnoreCase(type)) {
-            upsetCnt++;
-        } else if ("sad".equalsIgnoreCase(type)) {
-            sadCnt++;
-        } else if ("like".equalsIgnoreCase(type)) {
-            sadCnt++;
-        }
-    }
-
     @Builder
     public Article(LocalDateTime createdAt, LocalDateTime modifiedAt,
         Long createdById, Long modifiedById, Long articleId, String title, String content,
@@ -74,6 +64,16 @@ public class Article extends AuditProperties {
         this.viewCnt = viewCnt;
         this.label = label;
         this.commentCnt = commentCnt;
+    }
+
+    public void increaseReaction(String type) {
+        if ("upset".equalsIgnoreCase(type)) {
+            upsetCnt++;
+        } else if ("sad".equalsIgnoreCase(type)) {
+            sadCnt++;
+        } else if ("like".equalsIgnoreCase(type)) {
+            sadCnt++;
+        }
     }
 }
 
