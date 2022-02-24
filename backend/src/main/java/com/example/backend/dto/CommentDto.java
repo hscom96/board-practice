@@ -3,6 +3,8 @@ package com.example.backend.dto;
 import com.example.backend.common.util.Timeutil;
 import com.example.backend.dto.common.CommentProperties;
 import com.example.backend.model.Comment;
+import com.example.backend.model.User;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +25,13 @@ public class CommentDto extends CommentProperties {
     private Long modifiedAt;
     private Long modifiedById;
 
-    public static CommentDto from(Comment comment) {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String createdBy;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String modifiedBy;
+
+    public static CommentDto from(Comment comment, User user) {
         return CommentDto.builder()
             .commentId(comment.getCommentId())
             .parentId(comment.getParentId())
@@ -32,6 +40,8 @@ public class CommentDto extends CommentProperties {
             .createdAt(Timeutil.convertToTimestamp(comment.getCreatedAt()))
             .modifiedAt(Timeutil.convertToTimestamp(comment.getModifiedAt()))
             .createdById(comment.getCreatedById())
-            .modifiedById(comment.getModifiedById()).build();
+            .modifiedById(comment.getModifiedById())
+            .createdBy(user.getUserName())
+            .modifiedBy(user.getUserName()).build();
     }
 }
