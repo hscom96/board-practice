@@ -8,7 +8,7 @@
             v-model="username"
             type="text"
             autocapitalize="off"
-            placeholder="계정을 입력해 주세요."
+            placeholder="ID를 입력해 주세요."
             required />
         </div>
         <div

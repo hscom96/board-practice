@@ -2,25 +2,25 @@
   <div class="signup-form">
     <div class="input-group signup">
       <div class="input-box">
-        <div :class="[isChecked.name ? 'checked' : '', 'input']">
-          <input 
-            v-model="name"
-            type="text"
-            autocapitalize="off"
-            placeholder="이름을 입력해 주세요."
-            required />
-        </div>
-        <label>이름</label>
-        <div
-          v-if="error.name"
-          class="error-text">
-          {{ error.name }}
-        </div>
-      </div>
-      <div class="input-box">
         <div :class="[isChecked.username ? 'checked' : '', 'input']">
           <input 
             v-model="username"
+            type="text"
+            autocapitalize="off"
+            placeholder="ID를 입력해 주세요."
+            required />
+        </div>
+        <label>ID</label>
+        <div
+          v-if="error.username"
+          class="error-text">
+          {{ error.username }}
+        </div>
+      </div>
+      <div class="input-box">
+        <div :class="[isChecked.name ? 'checked' : '', 'input']">
+          <input 
+            v-model="name"
             type="text"
             autocapitalize="off"
             placeholder="닉네임을 입력해 주세요."
@@ -28,9 +28,9 @@
         </div>
         <label>닉네임</label>
         <div
-          v-if="error.username"
+          v-if="error.name"
           class="error-text">
-          {{ error.username }}
+          {{ error.name }}
         </div>
       </div>
       <div class="input-box">
