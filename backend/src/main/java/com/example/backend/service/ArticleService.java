@@ -7,7 +7,9 @@ import com.example.backend.dto.request.ArticleUpdateRequest;
 import com.example.backend.dto.common.PagingResponse;
 import com.example.backend.dto.request.ArticleWriteRequest;
 import com.example.backend.model.Article;
+import com.example.backend.model.User;
 import com.example.backend.repository.ArticleRepository;
+import com.example.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final UserRepository userRepository;
 
     public ArticleDto write(ArticleWriteRequest articleWriteRequest, Long currentUserId) {
         Article article = articleRepository.save(articleWriteRequest.toEntity(currentUserId));
@@ -43,14 +46,22 @@ public class ArticleService {
     public ArticleDto getArticle(Long articleId){
         Article article = articleRepository.findById(articleId)
             .orElseThrow(() -> {throw new CustomException(ResponseCode.POST_NOT_FOUND);});
-        return ArticleDto.of(article);
+
+        User user = userRepository.findById(article.getCreatedById())
+            .orElseThrow(() -> {throw new CustomException(ResponseCode.USER_NOT_FOUND);});
+
+        return ArticleDto.of(article, user);
     }
 
     public PagingResponse<ArticleDto> getArticles(int page, int size){
         Page<ArticleDto> articles = articleRepository.findAll(PageRequest.of(page, size))
             .map(ArticleDto::of);
-
         return PagingResponse.of(articles);
     }
 
+    public void delete(Long articleId){
+        articleRepository.findById(articleId)
+            .orElseThrow(() -> {throw new CustomException(ResponseCode.POST_NOT_FOUND);});
+        articleRepository.deleteById(articleId);
+    }
 }
