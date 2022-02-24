@@ -8,14 +8,14 @@ import org.springframework.data.domain.Pageable;
 @Getter
 @Builder
 @AllArgsConstructor
-public class CommentListResponseDto {
+public class CommentListDto {
 
     private int currentPage;
     private int totalPage;
     private Comments comments;
 
-    public static CommentListResponseDto of(Comments comments, Pageable pageable) {
-        return CommentListResponseDto.builder()
+    public static CommentListDto of(Comments comments, Pageable pageable) {
+        return CommentListDto.builder()
             .currentPage(pageable.getPageNumber())
             .totalPage(pageable.getPageNumber())
             .comments(comments).build();

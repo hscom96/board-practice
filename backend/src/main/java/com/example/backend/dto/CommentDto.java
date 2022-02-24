@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class CommentResponseDto extends CommentProperties {
+public class CommentDto extends CommentProperties {
 
     private Long commentId;
     private Long parentId;
@@ -24,8 +24,8 @@ public class CommentResponseDto extends CommentProperties {
     private LocalDateTime modifiedAt;
     private Long modifiedById;
 
-    public static CommentResponseDto from(Comment comment) {
-        return CommentResponseDto.builder()
+    public static CommentDto from(Comment comment) {
+        return CommentDto.builder()
             .commentId(comment.getCommentId())
             .parentId(comment.getParentId())
             .articleId(comment.getArticleId())

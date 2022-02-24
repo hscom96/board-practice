@@ -2,8 +2,8 @@ package com.example.backend.service;
 
 import com.example.backend.common.constants.ResponseCode;
 import com.example.backend.common.exception.CustomException;
-import com.example.backend.dto.CommentListResponseDto;
-import com.example.backend.dto.CommentResponseDto;
+import com.example.backend.dto.CommentListDto;
+import com.example.backend.dto.CommentDto;
 import com.example.backend.dto.Comments;
 import com.example.backend.dto.request.CommentCreateRequest;
 import com.example.backend.dto.request.CommentUpdateRequest;
@@ -24,21 +24,21 @@ public class CommentService {
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
 
-    public CommentListResponseDto read(Long articleId, int pageNo, int pageSize) {
+    public CommentListDto read(Long articleId, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Comments comments = getCommentsBy(articleId, pageable);
 
-        return CommentListResponseDto.of(comments, pageable);
+        return CommentListDto.of(comments, pageable);
     }
 
-    public CommentResponseDto create(CommentCreateRequest commentCreateRequest, Long articleId, Long currentUserId) {
+    public CommentDto create(CommentCreateRequest commentCreateRequest, Long articleId, Long currentUserId) {
         Comment comment = commentCreateRequest.toEntity(articleId, currentUserId);
         commentRepository.save(comment);
 
-        return CommentResponseDto.from(comment);
+        return CommentDto.from(comment);
     }
 
-    public CommentResponseDto update(CommentUpdateRequest commentUpdateRequest, Long articleId, Long currentUserId, Long commentId) {
+    public CommentDto update(CommentUpdateRequest commentUpdateRequest, Long articleId, Long currentUserId, Long commentId) {
         validateArticle(articleId);
         validateAuth(commentId, currentUserId);
 
@@ -48,7 +48,7 @@ public class CommentService {
         updateComment.setContent(commentUpdateRequest.getContent());
         commentRepository.save(updateComment);
 
-        return CommentResponseDto.from(updateComment);
+        return CommentDto.from(updateComment);
     }
 
     public HttpStatus delete(Long articleId, Long commentId) {

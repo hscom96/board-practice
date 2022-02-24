@@ -2,8 +2,8 @@ package com.example.backend.controller;
 
 import com.example.backend.common.constants.ResponseCode;
 import com.example.backend.common.resolver.CurrentUser;
-import com.example.backend.dto.CommentListResponseDto;
-import com.example.backend.dto.CommentResponseDto;
+import com.example.backend.dto.CommentListDto;
+import com.example.backend.dto.CommentDto;
 import com.example.backend.dto.common.CommonResponse;
 import com.example.backend.dto.request.CommentCreateRequest;
 import com.example.backend.dto.request.CommentUpdateRequest;
@@ -30,26 +30,26 @@ public class CommentController {
     private final CommentService commentService;
 
     @GetMapping("/{articleId}/comment")
-    public ResponseEntity<CommonResponse<CommentListResponseDto>> read(@PathVariable("articleId") Long articleId,
+    public ResponseEntity<CommonResponse<CommentListDto>> read(@PathVariable("articleId") Long articleId,
         @RequestParam("page") int pageNo, @RequestParam("size") int pageSize) {
 
-        CommentListResponseDto commentListResponseDto = commentService.read(articleId, pageNo, pageSize);
+        CommentListDto commentListResponseDto = commentService.read(articleId, pageNo, pageSize);
         return ResponseEntity.ok(new CommonResponse<>(ResponseCode.SUCCESS, commentListResponseDto));
     }
 
     @PostMapping("/{articleId}/comment")
-    public ResponseEntity<CommonResponse<CommentResponseDto>> create(@RequestBody @Valid CommentCreateRequest commentCreateRequest,
+    public ResponseEntity<CommonResponse<CommentDto>> create(@RequestBody @Valid CommentCreateRequest commentCreateRequest,
         @PathVariable("articleId") Long articleId, @CurrentUser Long currentUserId) {
 
-        CommentResponseDto commentResponseDto = commentService.create(commentCreateRequest, articleId, currentUserId);
+        CommentDto commentResponseDto = commentService.create(commentCreateRequest, articleId, currentUserId);
         return ResponseEntity.ok(new CommonResponse<>(ResponseCode.SUCCESS, commentResponseDto));
     }
 
     @PutMapping("/{articleId}/comment/{commentId}")
-    public ResponseEntity<CommonResponse<CommentResponseDto>> update(@RequestBody @Valid CommentUpdateRequest commentUpdateRequest,
+    public ResponseEntity<CommonResponse<CommentDto>> update(@RequestBody @Valid CommentUpdateRequest commentUpdateRequest,
         @PathVariable("articleId") Long articleId, @PathVariable("commentId") Long commentId, @CurrentUser Long currentUserId) {
 
-        CommentResponseDto commentResponseDto = commentService.update(commentUpdateRequest, articleId,
+        CommentDto commentResponseDto = commentService.update(commentUpdateRequest, articleId,
             currentUserId, commentId);
         return ResponseEntity.ok(new CommonResponse<>(ResponseCode.SUCCESS, commentResponseDto));
     }
