@@ -14,8 +14,14 @@
       </div>
 
       <div class="write-comment-wrapper">
-        <textarea class="write-comment"></textarea>
-        <button class="btn-add-comment">
+        <textarea
+          v-model="inputComment"
+          class="write-comment"
+          placeholder="댓글을 입력하세요"
+          @keypress.enter="onClickWriteButton"></textarea>
+        <button
+          class="btn-add-comment"
+          @click="onClickWriteButton">
           댓글 등록
         </button>
       </div>
@@ -26,30 +32,38 @@
 <script>
 import requestComments from '~/utils/comments'
 import Comment from './Comment'
+import { mapState, mapActions  } from 'vuex'
 
 export default {
   components: { Comment },
   data() {
     return {
-      comments: [],
+      inputComment: '',
     }
   },
   computed: {
     commentCount() {
       return this.comments.reduce((sum, curr) => sum + 1 + curr.subComments.length, 0)
-    }
+    },
+    ...mapState('comments', [
+      'comments'
+    ])
   },
   mounted() {
     this.init()
   },
   methods: {
     init() {
-      this.getComments()
+      this.initComments()
     },
-    async getComments() {
+    ...mapActions('comments', [
+      'setComments',
+      'addComment'
+    ]),
+    async initComments() {
       try {
         const comments = await requestComments(this.$route.params.articleId)
-        this.comments = [ ...comments ]
+        this.setComments(comments)
       }
       catch(error) {
         alert(error)
@@ -57,6 +71,37 @@ export default {
     },
     isModified(created_at, modified_at) {
       return created_at !== modified_at
+    },
+    onClickWriteButton() {
+      if(this.inputComment.length <= 0) {
+        alert('댓글을 입력해주세요')
+        return
+      }
+      
+      this.addNewComment(this.inputComment)
+    },
+    addNewComment(text) {
+      // Todo: Request -> result = Response -> this.comment.push({ value: result, subComments: [] })
+
+      const data = { 
+        value: {
+          'comment_id' : Math.floor(Math.random()*10000),
+          'parent_id' : -1,
+          'article_id' : 0,
+          'content' : text,
+          'created_at': '2022-02-17 22:22:22',
+          'created_by': '새 댓글 작성자',
+          'created_by_id': 100, 
+          'modified_at': '2022-02-22 22:22:22',
+          'modified_by': '새 댓글 작성자',
+          'modified_by_id': 100,
+        },
+        subComments: []
+      }
+
+      this.addComment(data)
+
+      this.inputComment = ''
     }
   },
 }
@@ -83,21 +128,11 @@ export default {
       margin-bottom: 10px;
     }
 
-    .comments {
-      .parent-comment {
-        border-bottom: 1px solid $color-light;
-
-        &.has-sub,
-        &:last-of-type {
-          border: none;
-        }
-      }
-    }
-
     .write-comment-wrapper {
       width: 100%;
       display: flex;
       flex-direction: column;
+      transform: translateY(-1px);
 
       .write-comment {
         width: 100%;
