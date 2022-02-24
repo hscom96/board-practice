@@ -1,45 +1,61 @@
 <template>
-  <div class="comment">
+  <div>
     <div
-      v-if="sub"
-      class="sub">
-      <i class="fa-solid fa-reply icon-sub"></i>
-    </div>
-    <div class="comment-wrapper">
-      <div class="creater">
-        <div class="user-icon">
-          <i class="fa-solid fa-user"></i>
+      class="comment"
+      @mouseover="isHover=true"
+      @mouseleave="isHover=false">
+      <div
+        v-if="sub"
+        class="sub">
+        <i class="fa-solid fa-reply icon-sub"></i>
+      </div>
+
+      <div class="comment-wrapper">
+        <div class="creater">
+          <div class="user-icon">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <span>{{ comment.value.created_by }}</span>
         </div>
-        <span>{{ comment.value.created_by }}</span>
+
+        <div class="content">
+          {{ comment.value.content }}
+        </div>
+
+        <div class="time-info">
+          <span>{{ comment.value.created_at }}</span>
+          <span v-if="isModified(comment.value.created_at, comment.value.modified_at)">(수정됨)</span>
+        </div>
       </div>
 
-      <div class="content">
-        {{ comment.value.content }}
-      </div>
-
-      <div class="time-info">
-        <span>{{ comment.value.created_at }}</span>
-        <span v-if="isModified(comment.value.created_at, comment.value.modified_at)">(수정됨)</span>
-      </div>
-
-      <div v-if="comment.subComments && comment.subComments.length">
-        <Comment
-          v-for="subComment in comment.subComments"
-          :key="subComment.comment_id" 
-          :comment="subComment"
-          :sub="true"
-          class="sub-comment" />
-      </div>
+      <Toolbox
+        :comment="comment.value" />
+    </div>
+    <div v-if="comment.subComments && comment.subComments.length">
+      <Comment
+        v-for="subComment in comment.subComments"
+        :key="subComment.comment_id" 
+        :comment="subComment"
+        :sub="true"
+        class="sub-comment" />
     </div>
   </div>
 </template>
 
 <script>
+import Toolbox from './Toolbox'
+
 export default {
   name: 'Comment',
+  components: { Toolbox },
   props: {
     comment: Object,
     sub: Boolean
+  },
+  data() {
+    return {
+      isHover: false
+    }
   },
   methods: {
     isModified(created_at, modified_at) {
@@ -51,13 +67,13 @@ export default {
 
 <style lang="scss" scoped>
 .comment {
+  width: 97%;
+  margin: 0 auto;
+  padding: 10px 5px;
   display: flex;
   gap: 10px;
-  padding: 10px 5px;
-  
-  .sub-comment {
-    border-bottom: 1px solid $color-light;
-  }
+  position: relative;
+  border-bottom: 1px solid $color-light;
 
   .sub {
     .icon-sub {
