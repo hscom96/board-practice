@@ -52,7 +52,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions  } from 'vuex'
+import commentsApi from '~/utils/api/comments'
 
 export default {
   name: 'Toolbox',
@@ -70,7 +71,10 @@ export default {
   computed: {
     isNotSub() {
       return this.comment.parent_id === -1
-    }
+    },
+    ...mapState('user', [
+      'userId'
+    ])
   },
   methods: {
     ...mapActions('comments', [
@@ -96,6 +100,11 @@ export default {
 
       // Todo: [POST] article/{articleId}/comment?parentId={parentId}
       // alert(`Reply : [POST] article/${this.comment.value.article_id}/comment?parentId=${this.comment.value.comment_id}`)
+      commentsApi.addComment(this.userId, this.$route.params.articleId, {
+        content: this.replyText,
+        parentId: this.comment.comment_id
+      })
+
       const data = { 
         value: {
           'comment_id' : Math.floor(Math.random()*10000),
@@ -123,6 +132,9 @@ export default {
 
       // Todo: [PUT] article/{articleId}/comment/{commentId}
       // alert(`Edit : [PUT] article/${this.comment.article_id}/comment/${this.comment.comment_id}`)
+      commentsApi.editComment(this.userId, this.$route.params.articleId, this.comment.comment_id, {
+        content: this.editText,
+      })
 
       this.editAndSetComment({ editComment: this.comment, text: this.editText })
       this.onClickEditButton()

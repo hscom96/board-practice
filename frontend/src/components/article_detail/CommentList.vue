@@ -31,6 +31,7 @@
 
 <script>
 import requestComments from '~/utils/comments'
+import commentsApi from '~/utils/api/comments'
 import Comment from './Comment'
 import { mapState, mapActions  } from 'vuex'
 
@@ -47,6 +48,9 @@ export default {
     },
     ...mapState('comments', [
       'comments'
+    ]),
+    ...mapState('user', [
+      'userId'
     ])
   },
   mounted() {
@@ -81,7 +85,10 @@ export default {
       this.addNewComment(this.inputComment)
     },
     addNewComment(text) {
-      // Todo: Request -> result = Response -> this.comment.push({ value: result, subComments: [] })
+      commentsApi.addComment(this.userId, this.$route.params.articleId, {
+        content: text,
+        parentId: -1
+      })
 
       const data = { 
         value: {
@@ -102,7 +109,7 @@ export default {
       this.addComment(data)
 
       this.inputComment = ''
-    }
+    },
   },
 }
 </script>
