@@ -7,7 +7,7 @@ export default {
     'SET_COMMENTS': (state, comments) => {
       state.comments = [...comments]
     },
-    'ADD_COMMENT': (state, addComment) => {
+    'REPLY_COMMENT': (state, addComment) => {
       const newComments = state.comments.map(comment => {
         if(comment.value.comment_id === addComment.value.parent_id) {
           comment.subComments = [...comment.subComments, addComment]
@@ -17,6 +17,9 @@ export default {
       })
 
       state.comments = [...newComments]
+    },
+    'ADD_COMMENT': (state, addComment) => {
+      state.comments = [...state.comments, addComment]
     },
     'DELETE_COMMENT': (state, deleteComment) => {
       if(deleteComment.parent_id === - 1) {
@@ -69,6 +72,9 @@ export default {
   actions: {
     setComments({ commit }, comments) {
       commit('SET_COMMENTS', comments)
+    },
+    replyComment({ commit }, addComment) {
+      commit('REPLY_COMMENT', addComment)
     },
     addComment({ commit }, addComment) {
       commit('ADD_COMMENT', addComment)

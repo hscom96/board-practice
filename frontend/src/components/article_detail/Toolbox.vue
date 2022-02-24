@@ -37,13 +37,13 @@
       class="replybox">
       <input
         v-model="replyText" 
-        @keypress.enter="replyComment" />
+        @keypress.enter="replyNewComment" />
       <div class="button-wrapper">
         <button @click="onClickReplyButton">
           취소
         </button>
         <button
-          @click="replyComment">
+          @click="replyNewComment">
           등록
         </button>
       </div>
@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     ...mapActions('comments', [
-      'addComment',
+      'replyComment',
       'deleteComment',
       'editAndSetComment',
     ]),
@@ -88,7 +88,7 @@ export default {
       this.isEdit = !this.isEdit
       this.editText = this.comment.content
     },
-    replyComment() {
+    replyNewComment() {
       if(this.replyText.length <= 0) {
         alert('댓글을 입력해주세요')
         return
@@ -112,7 +112,7 @@ export default {
         subComments: []
       }
 
-      this.addComment(data)
+      this.replyComment(data)
       this.onClickReplyButton()
     },
     editComment() {
