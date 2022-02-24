@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,6 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
 @Entity
 public class Article extends AuditProperties {
@@ -48,6 +48,24 @@ public class Article extends AuditProperties {
 
     @Column(name = "comment_cnt")
     private int commentCnt;
+
+    @Builder
+    public Article(LocalDateTime createdAt, LocalDateTime modifiedAt,
+        Long createdById, Long modifiedById, Long articleId, String title, String content,
+        String image, int likeCnt, int sadCnt, int upsetCnt, int viewCnt, String label,
+        int commentCnt) {
+        super(createdAt, modifiedAt, createdById, modifiedById);
+        this.articleId = articleId;
+        this.title = title;
+        this.content = content;
+        this.image = image;
+        this.likeCnt = likeCnt;
+        this.sadCnt = sadCnt;
+        this.upsetCnt = upsetCnt;
+        this.viewCnt = viewCnt;
+        this.label = label;
+        this.commentCnt = commentCnt;
+    }
 }
 
 
