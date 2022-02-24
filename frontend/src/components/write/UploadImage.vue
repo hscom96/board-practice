@@ -44,11 +44,6 @@ export default {
       return this.username + Date.now() + '.jpg'
     }
   },
-  watch: {
-    location() {
-      
-    }
-  },
   methods: {
     getImage() {
       this.file = this.$refs.image.files[0]
