@@ -1,15 +1,17 @@
 package com.example.backend.model;
 
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 @Getter
-@Builder
+@NoArgsConstructor
 @IdClass(ReactionId.class)
 @Entity
 public class Reaction extends AuditProperties {
@@ -28,6 +30,17 @@ public class Reaction extends AuditProperties {
 
     @Column(name = "created_by")
     private String createdBy;
+
+    @Builder
+    public Reaction(LocalDateTime createdAt, LocalDateTime modifiedAt,
+        Long createdById, Long modifiedById, String type, Long articleId, Long userId,
+        String createdBy) {
+        super(createdAt, modifiedAt, createdById, modifiedById);
+        this.type = type;
+        this.articleId = articleId;
+        this.userId = userId;
+        this.createdBy = createdBy;
+    }
 }
 
 

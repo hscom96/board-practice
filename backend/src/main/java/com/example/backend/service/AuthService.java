@@ -25,10 +25,14 @@ public class AuthService {
     }
 
     public UserDto register(RegisterRequest registerRequest) {
-        userRepository.findByUserName(registerRequest.getUserName())
-            .ifPresent((user)->{throw new CustomException(ResponseCode.USER_ID_DUPLICATE);});
+        verifyDuplicatedUserName(registerRequest);
         User user = userRepository.save(registerRequest.toEntity());
         return UserDto.from(user);
+    }
+
+    private void verifyDuplicatedUserName(RegisterRequest registerRequest) {
+        userRepository.findByUserName(registerRequest.getUserName())
+            .ifPresent(user->{throw new CustomException(ResponseCode.USER_ID_DUPLICATE);});
     }
 }
 

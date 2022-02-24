@@ -23,6 +23,7 @@ public class ReactionService {
 
         // TODO: type 상수화
         // TODO: article 존재여부 검증
+        // TODO: 게시글 count 상승추가
 
         Reaction reaction = Reaction.builder()
             .userId(user.getUserId())
