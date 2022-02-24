@@ -18,8 +18,10 @@ public enum ResponseCode {
     /* 회원 관련 오류 정의 끝*/
 
     /* 게시글 관련 오류 정의 */
-    POST_NOT_FOUND(4000, "해당 게시글을 찾을 수 없습니다.");
+    POST_NOT_FOUND(4000, "해당 게시글을 찾을 수 없습니다."),
+    USER_NOT_GRANTED (4001, "권한이 없습니다.");
     /* 게시글 관련 오류 정의 끝*/
+
 
     private final int code;
 

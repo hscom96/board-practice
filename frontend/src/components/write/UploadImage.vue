@@ -1,8 +1,14 @@
 <template>
   <div class="image">
     <div class="empty-box">
+      <img
+        v-if="origin"
+        :src="imagePath"
+        alt="" />
       <label for="input-file">
-        <i class="fa-solid fa-plus add-icon"></i>
+        <i
+          v-if="!origin"
+          class="fa-solid fa-plus add-icon"></i>
       </label>
     </div>
     <input
@@ -15,21 +21,33 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import AWS from 'aws-sdk'
 
 export default {
   name: 'UploadImage',
+  props: {
+    origin: String,
+  },
   data () {
     return {
-      image: '',
+      file: '',
       fileName: '',
-      location: ''
     }
   },
-    methods: {
+  computed: {
+    ...mapState('user', ['username']),
+    imagePath() {
+      return process.env.S3_SERVER_URL + this.origin
+    },
+    photoKey() {
+      return this.username + Date.now() + '.jpg'
+    }
+  },
+  methods: {
     getImage() {
-      this.image = this.$refs.image.files[0]
-      this.fileName = this.image.name
+      this.file = this.$refs.image.files[0]
+      this.fileName = this.file.name
 
       this.submitProfilePhoto()
     },
@@ -52,8 +70,8 @@ export default {
         }
       })
 
-      const file = this.image
-      const fileName = this.fileName
+      const file = this.file
+      const fileName = this.photoKey
       const albumPhotosKey = encodeURIComponent('images') + '/'
       const photoKey = albumPhotosKey + fileName
       
@@ -63,7 +81,7 @@ export default {
         ACL: 'public-read'
       }).promise()
         .then((res) => {
-          this.location = res.Location
+          this.$emit('upload', res.Key)
         })
     }
   }
@@ -74,19 +92,31 @@ export default {
   .image {
     margin: 20px 0;
     .empty-box {
+      position: relative;
       width: 160px;
       height: 90px;
       background-color: $color-light;
       border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow: hidden;
 
-      .add-icon {
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+
+      i {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        
         font-size: 24px;
         color: $color-grey;
         cursor: pointer;
       }
+
+      
     }
     input[type="file"]{
       display: none;
