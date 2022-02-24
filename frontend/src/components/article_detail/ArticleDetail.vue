@@ -31,9 +31,9 @@
 
           <div class="content-wrapper">
             <div class="img-wrapper">
-              <img
+              <!-- <img
                 src="https://picsum.photos/300/200"
-                alt="article image" />
+                alt="article image" /> -->
             </div>
             <pre>
               {{ articleInfo.content }}

@@ -17,10 +17,11 @@
         <textarea
           v-model="inputComment"
           class="write-comment"
-          placeholder="댓글을 입력하세요"></textarea>
+          placeholder="댓글을 입력하세요"
+          @keypress.enter="onClickWriteButton"></textarea>
         <button
           class="btn-add-comment"
-          @click="onClickWriteComment">
+          @click="onClickWriteButton">
           댓글 등록
         </button>
       </div>
@@ -31,31 +32,38 @@
 <script>
 import requestComments from '~/utils/comments'
 import Comment from './Comment'
+import { mapState, mapActions  } from 'vuex'
 
 export default {
   components: { Comment },
   data() {
     return {
-      comments: [],
       inputComment: '',
     }
   },
   computed: {
     commentCount() {
       return this.comments.reduce((sum, curr) => sum + 1 + curr.subComments.length, 0)
-    }
+    },
+    ...mapState('comments', [
+      'comments'
+    ])
   },
   mounted() {
     this.init()
   },
   methods: {
     init() {
-      this.getComments()
+      this.initComments()
     },
-    async getComments() {
+    ...mapActions('comments', [
+      'setComments',
+      'addComment'
+    ]),
+    async initComments() {
       try {
         const comments = await requestComments(this.$route.params.articleId)
-        this.comments = [ ...comments ]
+        this.setComments(comments)
       }
       catch(error) {
         alert(error)
@@ -64,18 +72,18 @@ export default {
     isModified(created_at, modified_at) {
       return created_at !== modified_at
     },
-    onClickWriteComment() {
+    onClickWriteButton() {
       if(this.inputComment.length <= 0) {
         alert('댓글을 입력해주세요')
         return
       }
       
-      this.addComment(this.inputComment)
+      this.addNewComment(this.inputComment)
     },
-    addComment(text) {
+    addNewComment(text) {
       // Todo: Request -> result = Response -> this.comment.push({ value: result, subComments: [] })
 
-      this.comments.push({ 
+      const data = { 
         value: {
           'comment_id' : Math.floor(Math.random()*10000),
           'parent_id' : -1,
@@ -89,7 +97,9 @@ export default {
           'modified_by_id': 100,
         },
         subComments: []
-      })
+      }
+
+      this.addComment(data)
 
       this.inputComment = ''
     }

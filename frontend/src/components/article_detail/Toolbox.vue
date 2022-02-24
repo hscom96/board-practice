@@ -18,6 +18,11 @@ export default {
   props: {
     comment: Object
   },
+  computed: {
+    comments() {
+      return this.$store.state.Comments.comments
+    }
+  },
   methods: {
     onClickReplyButton() {
       // Todo: [POST] article/{articleId}/comment?parentId={parentId}
