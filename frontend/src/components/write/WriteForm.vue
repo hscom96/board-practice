@@ -93,8 +93,17 @@ export default {
   },
   methods: {
     async onCreate() {
-      const res = await articleApi.createArticle(this.articleData)
-      console.log(res)
+      const { data } = await articleApi.createArticle(this.articleData)
+      if (data.code === 200) {
+        this.$router.push({ 
+          name: 'ArticleDetail', 
+          params: { 
+            articleId: data.data.article_id
+          }
+        })
+      } else {
+        alert(data.message)
+      }
     },
     insertTitle(event) {
       this.title = event.target.value
