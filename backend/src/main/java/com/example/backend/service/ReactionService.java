@@ -3,12 +3,14 @@ package com.example.backend.service;
 import com.example.backend.common.constants.ResponseCode;
 import com.example.backend.common.exception.CustomException;
 import com.example.backend.dto.ReactionDto;
+import com.example.backend.dto.isReactionDto;
 import com.example.backend.model.Article;
 import com.example.backend.model.Reaction;
 import com.example.backend.model.User;
 import com.example.backend.repository.ArticleRepository;
 import com.example.backend.repository.ReactionRepository;
 import com.example.backend.repository.UserRepository;
+import java.util.List;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,11 @@ public class ReactionService {
         articleRepository.save(article);
 
         reactionRepository.deleteByTypeAndUserIdAndArticleId(type, currentUserId, articleId);
+    }
+
+    public isReactionDto isReaction(Long articleId, Long currentUserId){
+        List<Reaction> reactions = reactionRepository.findAllByArticleIdAndUserId(articleId, currentUserId);
+        return isReactionDto.of(reactions);
     }
 
     private void increaseReactionCount(Long articleId, String type) {
