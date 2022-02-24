@@ -16,6 +16,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 @AllArgsConstructor
 public class AuditProperties {
 
+    public void updateModifiedById(Long userId) {
+        this.modifiedById = userId;
+    }
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
