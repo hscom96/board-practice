@@ -5,9 +5,11 @@ import com.example.backend.common.resolver.CurrentUser;
 import com.example.backend.dto.ArticleDto;
 import com.example.backend.dto.common.CommonResponse;
 import com.example.backend.dto.request.ArticleUpdateRequest;
+import com.example.backend.dto.common.PagingResponse;
 import com.example.backend.dto.request.ArticleWriteRequest;
 import com.example.backend.service.ArticleService;
 import javax.validation.Valid;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +35,14 @@ public class ArticleController {
         return ResponseEntity.ok(new CommonResponse<>(ResponseCode.SUCCESS, articleDto));
     }
 
+    @PostMapping("/{articleId}")
+    public ResponseEntity<CommonResponse<ArticleDto>> update(@PathVariable("articleId") Long articleId,
+        @RequestBody @Valid ArticleUpdateRequest articleUpdateRequest,
+        @CurrentUser Long currentUserId){
+       ArticleDto articleDto = articleService.update(articleId, articleUpdateRequest, currentUserId);
+       return ResponseEntity.ok(new CommonResponse<>(ResponseCode.SUCCESS,articleDto));
+    }
+
     @GetMapping("/{articleId}")
     public ResponseEntity<CommonResponse<ArticleDto>> getArticle(@PathVariable("articleId") Long articleId){
         ArticleDto articleDto = articleService.getArticle(articleId);
@@ -43,14 +53,6 @@ public class ArticleController {
     public ResponseEntity<CommonResponse<?>> getArticles(@RequestParam("page") int page, @RequestParam("size") int size){
         var articles = articleService.getArticles(page, size);
         return ResponseEntity.ok(new CommonResponse<>(ResponseCode.SUCCESS, articles));
-    }
-
-    @PostMapping("/{articleId}")
-    public ResponseEntity<CommonResponse<ArticleDto>> update(@PathVariable("articleId") Long articleId,
-        @RequestBody @Valid ArticleUpdateRequest articleUpdateRequest,
-        @CurrentUser Long currentUserId){
-        ArticleDto articleDto = articleService.update(articleId, articleUpdateRequest, currentUserId);
-        return ResponseEntity.ok(new CommonResponse<>(ResponseCode.SUCCESS,articleDto));
     }
 
 }
