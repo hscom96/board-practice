@@ -28,18 +28,13 @@ public class Reaction extends AuditProperties {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "created_by")
-    private String createdBy;
-
     @Builder
     public Reaction(LocalDateTime createdAt, LocalDateTime modifiedAt,
-        Long createdById, Long modifiedById, String type, Long articleId, Long userId,
-        String createdBy) {
+        Long createdById, Long modifiedById, String type, Long articleId, Long userId) {
         super(createdAt, modifiedAt, createdById, modifiedById);
         this.type = type;
         this.articleId = articleId;
         this.userId = userId;
-        this.createdBy = createdBy;
     }
 }
 

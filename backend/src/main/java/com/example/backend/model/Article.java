@@ -11,7 +11,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
@@ -65,6 +64,26 @@ public class Article extends AuditProperties {
         this.viewCnt = viewCnt;
         this.label = label;
         this.commentCnt = commentCnt;
+    }
+
+    public void increaseReaction(String type) {
+        if ("upset".equalsIgnoreCase(type)) {
+            upsetCnt++;
+        } else if ("sad".equalsIgnoreCase(type)) {
+            sadCnt++;
+        } else if ("like".equalsIgnoreCase(type)) {
+            sadCnt++;
+        }
+    }
+
+    public void decreaseReaction(String type) {
+        if ("upset".equalsIgnoreCase(type)) {
+            upsetCnt--;
+        } else if ("sad".equalsIgnoreCase(type)) {
+            sadCnt--;
+        } else if ("like".equalsIgnoreCase(type)) {
+            sadCnt--;
+        }
     }
 }
 
