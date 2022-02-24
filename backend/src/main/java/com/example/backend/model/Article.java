@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -85,6 +84,13 @@ public class Article extends AuditProperties {
             sadCnt--;
         }
     }
+
+    public void update(Article article){
+        this.title = article.getTitle();
+        this.content = article.getContent();
+        super.updateModifiedById(article.getModifiedById());
+    }
+
 }
 
 
