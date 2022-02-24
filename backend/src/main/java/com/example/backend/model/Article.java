@@ -90,7 +90,6 @@ public class Article extends AuditProperties {
         this.content = article.getContent();
         super.updateModifiedById(article.getModifiedById());
     }
-
 }
 
 
