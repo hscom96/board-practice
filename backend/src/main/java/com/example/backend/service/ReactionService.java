@@ -24,11 +24,9 @@ public class ReactionService {
     public ReactionDto addReaction(Long articleId, String type, Long currentUserId){
         User user = userRepository.findById(currentUserId)
             .orElseThrow(() -> {throw new CustomException(ResponseCode.USER_NOT_FOUND);});
-        Article article = articleRepository.findById(articleId)
-            .orElseThrow(() -> {throw new CustomException(ResponseCode.POST_NOT_FOUND);});
+        increaseReactionCount(articleId, type);
 
         // TODO: type 상수화
-        article.increaseReaction(type);
 
         Reaction reaction = Reaction.builder()
             .userId(user.getUserId())
@@ -36,7 +34,6 @@ public class ReactionService {
             .createdById(currentUserId)
             .modifiedById(currentUserId)
             .type(type).build();
-
         reactionRepository.save(reaction);
 
         return ReactionDto.of(reaction, user);
@@ -50,5 +47,13 @@ public class ReactionService {
         articleRepository.save(article);
 
         reactionRepository.deleteByTypeAndUserIdAndArticleId(type, currentUserId, articleId);
+    }
+
+    private void increaseReactionCount(Long articleId, String type) {
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> {throw new CustomException(ResponseCode.POST_NOT_FOUND);});
+
+        article.increaseReaction(type);
+        articleRepository.save(article);
     }
 }

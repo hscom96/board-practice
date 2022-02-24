@@ -71,7 +71,7 @@ public class Article extends AuditProperties {
         } else if ("sad".equalsIgnoreCase(type)) {
             sadCnt++;
         } else if ("like".equalsIgnoreCase(type)) {
-            sadCnt++;
+            likeCnt++;
         }
     }
 
@@ -81,7 +81,7 @@ public class Article extends AuditProperties {
         } else if ("sad".equalsIgnoreCase(type)) {
             sadCnt--;
         } else if ("like".equalsIgnoreCase(type)) {
-            sadCnt--;
+            likeCnt--;
         }
     }
 
