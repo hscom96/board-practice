@@ -19,10 +19,10 @@ public class CommentDto extends CommentProperties {
     private Long articleId;
     private String content;
 
-    private Long createdAt;
+    private long createdAt;
     private Long createdById;
 
-    private Long modifiedAt;
+    private long modifiedAt;
     private Long modifiedById;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
