@@ -1,4 +1,4 @@
-package com.example.backend.model;
+package com.example.backend.dto.common;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -14,11 +14,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuditProperties {
-
-    public void updateModifiedById(Long userId) {
-        this.modifiedById = userId;
-    }
+public class CommentProperties {
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
