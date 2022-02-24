@@ -13,17 +13,24 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Toolbox',
   props: {
     comment: Object
   },
-  computed: {
-    comments() {
-      return this.$store.state.Comments.comments
+  data() {
+    return {
+      inputComment: '',
     }
   },
   methods: {
+    ...mapActions('comments', [
+      'addComment',
+      'deleteComment',
+      'editComment',
+    ]),
     onClickReplyButton() {
       // Todo: [POST] article/{articleId}/comment?parentId={parentId}
 
@@ -39,7 +46,8 @@ export default {
     onClickDeleteButton() {
       // Todo: [DELETE] article/{articleId}/comment/{commentId}
 
-      alert(`Delete : [DELETE] article/${this.comment.article_id}/comment/${this.comment.comment_id}`)
+      //alert(`Delete : [DELETE] article/${this.comment.article_id}/comment/${this.comment.comment_id}`)
+      this.deleteComment(this.comment)
     },
   }
 }
