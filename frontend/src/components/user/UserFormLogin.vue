@@ -34,10 +34,17 @@
         </div>
       </div>
     </div>
+    <button 
+      :class="[complete ? '' : 'disable', 'btn-submit']"
+      @click="onLogin(userData)">
+      로그인
+    </button>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'UserFormLogin',
   data() {
@@ -55,6 +62,14 @@ export default {
       complete: false
     }
   },
+  computed: {
+    userData() {
+      return {
+        'user_name': this.username,
+        'password': this.password
+      }
+    }
+  },
   watch: {
     username() {
       this.checkForm()
@@ -62,11 +77,9 @@ export default {
     password() {
       this.checkForm()
     },
-    complete() {
-      this.$emit('activate', this.complete)
-    }
   },
   methods: {
+    ...mapActions('user', ['onLogin']),
     checkForm() {
       this.checkUserName()
       this.checkPassword()

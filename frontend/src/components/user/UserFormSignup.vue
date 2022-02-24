@@ -66,6 +66,11 @@
         </div>
       </div>
     </div>
+    <button 
+      :class="[complete ? '' : 'disable', 'btn-submit']"
+      @click="submit">
+      회원가입
+    </button>
   </div>
 </template>
 
@@ -106,9 +111,6 @@ export default {
     passwordConfirm() {
       this.checkForm()
     },
-    complete() {
-      this.$emit('activate', this.complete)
-    }
   },
   methods: {
     checkForm() {
