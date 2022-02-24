@@ -16,6 +16,6 @@ public class ArticleUpdateRequest {
             .title(title)
             .content(content)
             .image(image)
-            .modifiedById(currentUserId).build();
+            .build();
     }
 }
