@@ -1,6 +1,5 @@
 package com.example.backend.common.constants;
 
-import javax.validation.constraints.Pattern;
 import lombok.Getter;
 
 @Getter
