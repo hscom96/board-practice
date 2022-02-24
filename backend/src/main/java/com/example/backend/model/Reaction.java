@@ -21,7 +21,4 @@ public class Reaction extends AuditProperties {
     @Id
     @Column(name = "user_id")
     private String userId;
-
-    @Column(name = "created_by")
-    private String createdBy;
 }

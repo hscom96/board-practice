@@ -24,4 +24,10 @@ public class AuditProperties {
     @UpdateTimestamp
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "modified_by")
+    private String modifiedBy;
 }

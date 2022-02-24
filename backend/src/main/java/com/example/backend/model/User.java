@@ -38,12 +38,6 @@ public class User extends AuditProperties {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "created_by")
-    private String createdBy;
-
-    @Column(name = "modified_by")
-    private String modifiedBy;
-
     @Column(name = "last_login_at", nullable = false)
     private LocalDateTime lastLoginAt = LocalDateTime.now();
 
@@ -51,15 +45,13 @@ public class User extends AuditProperties {
     public User(LocalDateTime createdAt, LocalDateTime modifiedAt, Long userId, String name,
         String userName, String userRole, String password, String createdBy,
         String modifiedBy, LocalDateTime lastLoginAt) {
-        super(createdAt, modifiedAt);
+        super(createdAt, modifiedAt, createdBy, modifiedBy);
         verifyPasswordForm(password);
         this.userId = userId;
         this.name = name;
         this.userName = userName;
         this.userRole = userRole;
         this.password = password;
-        this.createdBy = createdBy;
-        this.modifiedBy = modifiedBy;
         this.lastLoginAt = lastLoginAt;
     }
 
