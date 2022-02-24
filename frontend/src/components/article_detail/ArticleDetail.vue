@@ -25,7 +25,7 @@
               <span>{{ articleInfo.created_at }}</span>
               <span v-if="isModified(articleInfo.created_at, articleInfo.modified_at)">(수정됨)</span>
               ·
-              <span>조회 {{ articleInfo.view_count }}</span>
+              <span>조회 {{ articleInfo.view_cnt }}</span>
             </div>
           </div>
 
@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import requestArticleDetail from '~/utils/article_detail'
+import requestArticleDetail from '~/utils/api/article_detail'
 
 export default {
   data() {
@@ -89,8 +89,10 @@ export default {
     },
     async getArticleDetail() {
       try {
-        const articleDetail = await requestArticleDetail(this.$route.params.articleId)
-        this.articleInfo = { ...articleDetail }
+        const result = await requestArticleDetail(this.$route.params.articleId)
+                              .then(result => result.data.data)
+        console.log(result)
+        this.articleInfo = { ...result }
       }
       catch(error) {
         alert(error)
