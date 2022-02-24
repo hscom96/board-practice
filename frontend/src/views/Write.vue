@@ -25,7 +25,6 @@ export default {
 
 <style lang="scss" scoped>
   .write {
-    height: fit-content;
     .fix-bottom {
       position: absolute;
       left: 0;
