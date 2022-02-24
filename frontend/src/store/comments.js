@@ -7,8 +7,16 @@ export default {
     'SET_COMMENTS': (state, comments) => {
       state.comments = [...comments]
     },
-    'ADD_COMMENT': (state, comment) => {
-      state.comments.push(comment)
+    'ADD_COMMENT': (state, addComment) => {
+      const newComments = state.comments.map(comment => {
+        if(comment.value.comment_id === addComment.value.parent_id) {
+          comment.subComments = [...comment.subComments, addComment]
+        }
+
+        return comment
+      })
+
+      state.comments = [...newComments]
     },
     'DELETE_COMMENT': (state, deleteComment) => {
       if(deleteComment.parent_id === - 1) {
@@ -27,29 +35,49 @@ export default {
         state.comments = [...newComments]
       }
     },
-    'EDIT_COMMENT': (state, editComment) => {
-      const newComments = state.comments.map(comment => {
-        if(comment.value.comment_id !== editComment.comment_id) {
-          return { ...comment, content: editComment.content }
-        }
-
-        return comment
-      })
-      state.comments = [...newComments]
+    'EDIT_COMMENT': (state, value) => {
+      const { editComment, text } = value
+      if(editComment.parent_id === - 1) {
+        const newComments = state.comments.map(comment => {
+          if(comment.value.comment_id === editComment.comment_id) {
+            comment.value = { ...comment.value, content: text }
+          }
+  
+          return comment
+        })
+        state.comments = [...newComments]
+      }
+      else {
+        const newComments = state.comments.map(comment => {
+          if(comment.value.comment_id === editComment.parent_id) {
+            const newSubComments = comment.subComments.map(sub => {
+              if(sub.value.comment_id === editComment.comment_id) {
+                sub.value.content = text
+              }
+      
+              return sub
+            })
+            comment.subComments = [...newSubComments]
+          }
+  
+          return comment
+        })
+        state.comments = [...newComments]
+      }
     },
   },
   actions: {
     setComments({ commit }, comments) {
       commit('SET_COMMENTS', comments)
     },
-    addComment({ commit }, comment) {
-      commit('ADD_COMMENT', comment)
+    addComment({ commit }, addComment) {
+      commit('ADD_COMMENT', addComment)
     },
     deleteComment({ commit }, deleteComment) {
       commit('DELETE_COMMENT', deleteComment)
     },
-    editComment({ commit }, editComment) {
-      commit('EDIT_COMMENT', editComment)
+    editAndSetComment({ commit }, value) {
+      commit('EDIT_COMMENT', value)
     },
   }
 }
