@@ -4,14 +4,19 @@ import com.example.backend.common.constants.ResponseCode;
 import com.example.backend.common.resolver.CurrentUser;
 import com.example.backend.dto.ArticleDto;
 import com.example.backend.dto.common.CommonResponse;
+import com.example.backend.dto.common.PagingResponse;
 import com.example.backend.dto.request.ArticleWriteRequest;
 import com.example.backend.service.ArticleService;
 import javax.validation.Valid;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -27,5 +32,17 @@ public class ArticleController {
         @CurrentUser Long currentUserId) {
         ArticleDto articleDto = articleService.write(articleWriteRequest, currentUserId);
         return ResponseEntity.ok(new CommonResponse<>(ResponseCode.SUCCESS, articleDto));
+    }
+
+    @GetMapping("/{articleId}")
+    public ResponseEntity<CommonResponse<ArticleDto>> getArticle(@PathVariable("articleId") Long articleId){
+        ArticleDto articleDto = articleService.getArticle(articleId);
+        return ResponseEntity.ok(new CommonResponse<>(ResponseCode.SUCCESS, articleDto));
+    }
+
+    @GetMapping
+    public ResponseEntity<CommonResponse<?>> getArticles(@RequestParam("page") int page, @RequestParam("size") int size){
+        var articles = articleService.getArticles(page, size);
+        return ResponseEntity.ok(new CommonResponse<>(ResponseCode.SUCCESS, articles));
     }
 }
