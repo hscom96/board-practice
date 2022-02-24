@@ -1,9 +1,8 @@
 package com.example.backend.dto;
 
+import com.example.backend.common.util.Timeutil;
 import com.example.backend.dto.common.CommentProperties;
 import com.example.backend.model.Comment;
-import com.example.backend.model.User;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,10 +17,10 @@ public class CommentDto extends CommentProperties {
     private Long articleId;
     private String content;
 
-    private LocalDateTime createdAt;
+    private Long createdAt;
     private Long createdById;
 
-    private LocalDateTime modifiedAt;
+    private Long modifiedAt;
     private Long modifiedById;
 
     public static CommentDto from(Comment comment) {
@@ -30,16 +29,9 @@ public class CommentDto extends CommentProperties {
             .parentId(comment.getParentId())
             .articleId(comment.getArticleId())
             .content(comment.getContent())
-            .createdAt(comment.getCreatedAt())
+            .createdAt(Timeutil.convertToTimestamp(comment.getCreatedAt()))
+            .modifiedAt(Timeutil.convertToTimestamp(comment.getModifiedAt()))
             .createdById(comment.getCreatedById())
-            .modifiedAt(comment.getModifiedAt())
             .modifiedById(comment.getModifiedById()).build();
-    }
-
-    public static UserDto from(User user){
-        return UserDto.builder()
-            .userId(user.getUserId())
-            .name(user.getName())
-            .userName(user.getUserName()).build();
     }
 }
