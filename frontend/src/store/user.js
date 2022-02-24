@@ -46,7 +46,7 @@ const mutations = {
     state.username = payload
   },
   SET_NICKNAME(state, payload) {
-    state.name = payload
+    state.nickname = payload
   },
 }
 

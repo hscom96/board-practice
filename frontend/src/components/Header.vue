@@ -9,7 +9,7 @@
           <i class="profile-icon fa-solid fa-user"></i>
         </a>
         <h3 class="profile-name">
-          {{ username }}
+          {{ nickname }}
         </h3>&nbsp;님
       </div>
     </div>
@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     ...mapState('user', [
-      'username'
+      'nickname'
     ])
   }
 }
