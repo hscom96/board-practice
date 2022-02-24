@@ -24,4 +24,10 @@ export default {
       data: userData
     })
   },
+  getArticleDetail(id) {
+    return axios({
+      url: SERVER_URL + `/article/${id}`,
+      method: 'get'
+    })
+  }
 }
