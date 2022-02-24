@@ -1,3 +1,4 @@
+import router from '~/routes'
 import userApi from '~/utils/api/user.js'
 
 const state = {
@@ -9,12 +10,30 @@ const actions = {
   async onLogin({ commit }, userData) {
     try {
       const { data } = await userApi.login(userData)
-      console.log(data)
+      if (data.code === 200) {
+        commit('SET_USER_ID', data.data.user_id)
+        commit('SET_USERNAME', data.data.user_name)
+        router.push({ name: 'ArticleList' })
+      } else {
+        alert(data.message)
+      }
+    } catch (err) {
+      console.log(err.response)
+    }
+  },
+  async onSignup({ commit }, userData) {
+    try {
+      const { data } = await userApi.signup(userData)
+      if (data.code === 200) {
+        router.push({ name: 'Login' })
+      } else {
+        alert(data.message)
+      }
       commit()
     } catch (err) {
       console.log(err.response)
     }
-  }
+  },
 }
 
 const mutations = {
