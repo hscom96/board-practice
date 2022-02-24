@@ -72,7 +72,7 @@ export default {
 
 <style lang="scss" scoped>
   .image {
-    margin-top: 10px;
+    margin: 20px 0;
     .empty-box {
       width: 160px;
       height: 90px;

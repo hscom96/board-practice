@@ -100,7 +100,7 @@ export default {
       textarea {
         padding: 20px;
         font-size: 16px;
-        height: 300px;
+        height: 350px;
         resize: none;
         &::placeholder {
           color: $color-lightgrey;
