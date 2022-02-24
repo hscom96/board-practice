@@ -31,12 +31,6 @@ public class Article extends AuditProperties {
     @Column(name = "image")
     private String image;
 
-    @Column(name = "created_by")
-    private String createdBy;
-
-    @Column(name = "modified_by")
-    private String modifiedBy;
-
     @Column(name = "like_cnt")
     private int likeCnt;
 

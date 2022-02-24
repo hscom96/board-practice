@@ -22,10 +22,4 @@ public class Comment extends AuditProperties {
 
     @Column(name = "parent_id", nullable = false)
     private Long parentId;
-
-    @Column(name = "created_by")
-    private String createdBy;
-
-    @Column(name = "modified_by")
-    private String modifiedBy;
 }

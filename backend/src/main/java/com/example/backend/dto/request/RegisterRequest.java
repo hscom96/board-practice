@@ -3,7 +3,6 @@ package com.example.backend.dto.request;
 import com.example.backend.model.User;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
