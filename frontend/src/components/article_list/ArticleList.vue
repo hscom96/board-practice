@@ -45,7 +45,7 @@ export default {
     return {
       isLoading: false,
       articleList: [],
-      requestPage: 0,
+      requestPage: 1,
       requestSize: 5,
     }
   },
