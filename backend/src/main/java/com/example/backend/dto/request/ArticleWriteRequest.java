@@ -15,6 +15,11 @@ public class ArticleWriteRequest {
     @NotBlank(message = "content is empty")
     private String content;
 
+    private String image;
+
+    @NotBlank(message = "label is empty")
+    private String label;
+
     public Article
     toEntity(Long currentUserId) {
         return Article.builder()
@@ -24,8 +29,11 @@ public class ArticleWriteRequest {
             .likeCnt(0)
             .title(title)
             .content(content)
+            .image(image)
+            .label(label)
             .createdById(currentUserId)
             .modifiedById(currentUserId)
             .build();
     }
+
 }
