@@ -22,7 +22,9 @@
         placeholder="제목"
         @input="insertTitle" />
     </div>
-    <div class="input-box radio">
+    <div
+      v-if="type === '등록'"
+      class="input-box radio">
       <div class="title">
         종류
       </div>
