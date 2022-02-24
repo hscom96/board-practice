@@ -1,6 +1,7 @@
 const { VueLoaderPlugin } = require('vue-loader')
 const HtmlPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = (env, options) => {
   console.log(env, options)
@@ -8,8 +9,12 @@ module.exports = (env, options) => {
     resolve: {
       extensions: ['.js', '.vue'],
       alias: {
-        '~': `${__dirname}/src`
-      }
+        '~': `${__dirname}/src`,
+        process: 'process/browser',
+      },
+      fallback: { 
+        'util': require.resolve('util/'),
+      },
     },
     entry: './src/main.js',
     output: {
@@ -49,7 +54,14 @@ module.exports = (env, options) => {
               }
             }
           ]
-        }
+        },
+        {
+          test: /\.svg$/,
+          use: [
+            'vue-loader',
+            'vue-svg-loader',
+          ],
+        },
       ]
     },
     plugins: [
@@ -61,7 +73,13 @@ module.exports = (env, options) => {
         patterns: [
           { from: 'static' }
         ]
-      })
+      }),
+      new webpack.ProvidePlugin({
+        process: 'process/browser',
+      }),    
+      new webpack.DefinePlugin({
+        'process.env': JSON.stringify(require('./s3.config.json')),
+      }),
     ],
     devServer: {
       port: 8000,
