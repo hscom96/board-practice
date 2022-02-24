@@ -27,14 +27,14 @@ public class ArticleService {
         return ArticleDto.of(article);
     }
 
-    public ArticleDto update(Long articleId, ArticleUpdateRequest articleWriteRequest,
+    public ArticleDto update(Long articleId, ArticleUpdateRequest articleUpdateRequest,
         Long currentUserId) {
         Article article = articleRepository.findById(articleId)
             .orElseThrow(() -> {
                 throw new CustomException(ResponseCode.POST_NOT_FOUND);
             });
         validateUserId(currentUserId, article);
-        article.update(articleWriteRequest.toEntity(currentUserId));
+        article.update(articleUpdateRequest.toEntity(currentUserId));
         Article updatedArticle = articleRepository.save(article);
         return ArticleDto.of(updatedArticle);
     }
