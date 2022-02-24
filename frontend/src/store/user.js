@@ -3,7 +3,8 @@ import userApi from '~/utils/api/user.js'
 
 const state = {
   userId: null,
-  username: ''
+  username: '',
+  nickname: ''
 }
 
 const actions = {
@@ -13,6 +14,7 @@ const actions = {
       if (data.code === 200) {
         commit('SET_USER_ID', data.data.user_id)
         commit('SET_USERNAME', data.data.user_name)
+        commit('SET_NICKNAME', data.data.name)
         router.push({ name: 'ArticleList' })
       } else {
         alert(data.message)
@@ -42,7 +44,10 @@ const mutations = {
   },
   SET_USERNAME(state, payload) {
     state.username = payload
-  }
+  },
+  SET_NICKNAME(state, payload) {
+    state.name = payload
+  },
 }
 
 const getters = {
