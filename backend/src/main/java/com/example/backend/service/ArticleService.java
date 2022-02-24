@@ -3,8 +3,8 @@ package com.example.backend.service;
 import com.example.backend.common.constants.ResponseCode;
 import com.example.backend.common.exception.CustomException;
 import com.example.backend.dto.ArticleDto;
-import com.example.backend.dto.request.ArticleUpdateRequest;
 import com.example.backend.dto.common.PagingResponse;
+import com.example.backend.dto.request.ArticleUpdateRequest;
 import com.example.backend.dto.request.ArticleWriteRequest;
 import com.example.backend.model.Article;
 import com.example.backend.model.User;
@@ -30,7 +30,9 @@ public class ArticleService {
     public ArticleDto update(Long articleId, ArticleUpdateRequest articleWriteRequest,
         Long currentUserId) {
         Article article = articleRepository.findById(articleId)
-            .orElseThrow(() -> {throw new CustomException(ResponseCode.POST_NOT_FOUND);});
+            .orElseThrow(() -> {
+                throw new CustomException(ResponseCode.POST_NOT_FOUND);
+            });
         validateUserId(currentUserId, article);
         article.update(articleWriteRequest.toEntity(currentUserId));
         Article updatedArticle = articleRepository.save(article);
@@ -38,30 +40,36 @@ public class ArticleService {
     }
 
     private void validateUserId(Long currentUserId, Article article) {
-        if (currentUserId!=(article.getCreatedById())) {
+        if (currentUserId != (article.getCreatedById())) {
             throw new CustomException(ResponseCode.USER_NOT_GRANTED);
         }
     }
 
-    public ArticleDto getArticle(Long articleId){
+    public ArticleDto getArticle(Long articleId) {
         Article article = articleRepository.findById(articleId)
-            .orElseThrow(() -> {throw new CustomException(ResponseCode.POST_NOT_FOUND);});
+            .orElseThrow(() -> {
+                throw new CustomException(ResponseCode.POST_NOT_FOUND);
+            });
 
         User user = userRepository.findById(article.getCreatedById())
-            .orElseThrow(() -> {throw new CustomException(ResponseCode.USER_NOT_FOUND);});
+            .orElseThrow(() -> {
+                throw new CustomException(ResponseCode.USER_NOT_FOUND);
+            });
 
         return ArticleDto.of(article, user);
     }
 
-    public PagingResponse<ArticleDto> getArticles(int page, int size){
+    public PagingResponse<ArticleDto> getArticles(int page, int size) {
         Page<ArticleDto> articles = articleRepository.findAll(PageRequest.of(page, size))
             .map(ArticleDto::of);
         return PagingResponse.of(articles);
     }
 
-    public void delete(Long articleId){
+    public void delete(Long articleId) {
         articleRepository.findById(articleId)
-            .orElseThrow(() -> {throw new CustomException(ResponseCode.POST_NOT_FOUND);});
+            .orElseThrow(() -> {
+                throw new CustomException(ResponseCode.POST_NOT_FOUND);
+            });
         articleRepository.deleteById(articleId);
     }
 
