@@ -38,7 +38,7 @@ public class ArticleService {
     }
 
     private void validateUserId(Long currentUserId, Article article) {
-        if (!currentUserId.equals(article.getArticleId())) {
+        if (currentUserId!=(article.getCreatedById())) {
             throw new CustomException(ResponseCode.USER_NOT_GRANTED);
         }
     }
@@ -64,4 +64,5 @@ public class ArticleService {
             .orElseThrow(() -> {throw new CustomException(ResponseCode.POST_NOT_FOUND);});
         articleRepository.deleteById(articleId);
     }
+
 }
