@@ -9,7 +9,7 @@
           <i class="profile-icon fa-solid fa-user"></i>
         </a>
         <h3 class="profile-name">
-          {{ userInfo.name }}
+          {{ username }}
         </h3>&nbsp;님
       </div>
     </div>
@@ -18,26 +18,16 @@
 
 <script>
 import Logo from './Logo'
+import { mapState } from 'vuex'
+
 export default {
   components: {
     Logo
   },
-  data() {
-    return {
-      userInfo: {
-        name: '홍길동',
-      },
-    }
-  },
   computed: {
-  },
-  mounted() {
-    this.init()
-  },
-  methods: {
-    async init() {
-      console.log('Todo: 유저 정보 로드')
-    },
+    ...mapState('user', [
+      'username'
+    ])
   }
 }
 </script>
