@@ -14,8 +14,12 @@ public enum ResponseCode {
     /* 회원 관련 오류 정의 */
     USER_NOT_FOUND(2000, "해당 회원을 찾을 수 없습니다."),
     PWD_FORM_ERROR(2001, "비밀번호는 영문 대,소문자와 숫자, 특수기호가 적어도 1개 이상씩 포함된 8자 ~ 20자의 비밀번호여야 합니다."),
-    USER_ID_DUPLICATE(2002, "이미 존재하는 회원 아이디입니다.");
+    USER_ID_DUPLICATE(2002, "이미 존재하는 회원 아이디입니다."),
     /* 회원 관련 오류 정의 끝*/
+
+    /* 게시글 관련 오류 정의 */
+    POST_NOT_FOUND(4000, "해당 게시글을 찾을 수 없습니다.");
+    /* 게시글 관련 오류 정의 끝*/
 
     private final int code;
 

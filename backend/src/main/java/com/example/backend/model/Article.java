@@ -10,9 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
 @Entity
 public class Article extends AuditProperties {
@@ -48,6 +46,16 @@ public class Article extends AuditProperties {
 
     @Column(name = "comment_cnt")
     private int commentCnt;
+
+    public void increaseReaction(String type){
+        if("upset".equalsIgnoreCase(type)){
+            upsetCnt++;
+        }else if("sad".equalsIgnoreCase(type)){
+            sadCnt++;
+        }else if("like".equalsIgnoreCase(type)){
+            sadCnt++;
+        }
+    }
 }
 
 
