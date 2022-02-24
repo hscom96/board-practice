@@ -104,8 +104,6 @@ export default {
       })
 
       location.reload()
-      // this.replyComment(data)
-      // this.onClickReplyButton()
     },
     editComment() {
       if(this.editText.length <= 0) {
@@ -113,20 +111,16 @@ export default {
         return
       }
 
-      // Todo: [PUT] article/{articleId}/comment/{commentId}
-      // alert(`Edit : [PUT] article/${this.comment.article_id}/comment/${this.comment.comment_id}`)
       commentsApi.editComment(this.userId, this.$route.params.articleId, this.comment.commentId, {
         content: this.editText,
       })
 
-      this.editAndSetComment({ editComment: this.comment, text: this.editText })
-      this.onClickEditButton()
+      location.reload()
     },
     onClickDeleteButton() {
-      // Todo: [DELETE] article/{articleId}/comment/{commentId}
-      // alert(`Delete : [DELETE] article/${this.comment.article_id}/comment/${this.comment.comment_id}`)
+      commentsApi.deleteComment(this.userId, this.$route.params.articleId, this.comment.commentId)
 
-      this.deleteComment(this.comment)
+      location.reload()
     },
   }
 }

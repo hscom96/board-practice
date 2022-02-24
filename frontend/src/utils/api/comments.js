@@ -26,7 +26,7 @@ export default {
   },
   editComment(userId, articleId, commentId, commentData) {
     return axios({
-      url: SERVER_URL + `article/${articleId}/comment/${commentId}`,
+      url: SERVER_URL + `/article/${articleId}/comment/${commentId}`,
       method: 'put',
       headers: { 
         'userId': userId,
@@ -40,7 +40,7 @@ export default {
   },
   deleteComment(userId, articleId, commentId) {
     return axios({
-      url: SERVER_URL + `article/${articleId}/comment/${commentId}`,
+      url: SERVER_URL + `/article/${articleId}/comment/${commentId}`,
       method: 'delete',
       headers: { 
         'userId': userId,
