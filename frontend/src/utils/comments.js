@@ -2,7 +2,6 @@ import commentsApi from './api/comments'
 
 export default async (articleId) => {
   const commentInfo = await commentsApi.getComments(articleId).then(result => result.data.data.comments.comments)
-  console.log(commentInfo)
 
   // 댓글 계층구조 데이터 생성
   const commentList = [...commentInfo]
