@@ -1,8 +1,8 @@
 package com.example.backend.controller;
 
 import com.example.backend.common.constants.ResponseCode;
+import com.example.backend.common.exception.CustomException;
 import com.example.backend.dto.common.CommonResponse;
-import com.example.backend.exception.CustomException;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
