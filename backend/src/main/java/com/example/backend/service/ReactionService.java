@@ -44,6 +44,11 @@ public class ReactionService {
 
     @Transactional
     public void deleteReaction(Long articleId, String type, Long currentUserId){
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> {throw new CustomException(ResponseCode.POST_NOT_FOUND);});
+        article.decreaseReaction(type);
+        articleRepository.save(article);
+
         reactionRepository.deleteByTypeAndUserIdAndArticleId(type, currentUserId, articleId);
     }
 }

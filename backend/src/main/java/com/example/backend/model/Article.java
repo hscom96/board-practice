@@ -75,6 +75,16 @@ public class Article extends AuditProperties {
             sadCnt++;
         }
     }
+
+    public void decreaseReaction(String type) {
+        if ("upset".equalsIgnoreCase(type)) {
+            upsetCnt--;
+        } else if ("sad".equalsIgnoreCase(type)) {
+            sadCnt--;
+        } else if ("like".equalsIgnoreCase(type)) {
+            sadCnt--;
+        }
+    }
 }
 
 
