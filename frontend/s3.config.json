@@ -1,0 +1,6 @@
+{
+  "S3_BUCKET": "board-pjt-4",
+  "S3_ACCESS_KEY_ID": "AKIAQ6VX5WZDISNT34TZ",
+  "S3_SECRET_ACCESS_KEY": "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",
+  "S3_SERVER_URL": "https://board-pjt-4.s3.ap-northeast-2.amazonaws.com/"
+}
