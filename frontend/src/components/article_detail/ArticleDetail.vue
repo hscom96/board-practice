@@ -37,9 +37,10 @@
 
           <div class="content-wrapper">
             <div class="img-wrapper">
-              <!-- <img
-                src="https://picsum.photos/300/200"
-                alt="article image" /> -->
+              <img
+                v-if="articleInfo.image"
+                :src="imagePath"
+                alt="article image" />
             </div>
             <pre>
               {{ articleInfo.content }}
@@ -100,6 +101,9 @@ export default {
     ]),
     isSameId() {
       return this.articleInfo.created_by_id === this.userId
+    },
+    imagePath() {
+      return process.env.S3_SERVER_URL + this.articleInfo.image
     }
   },
   mounted() {
@@ -125,7 +129,6 @@ export default {
         const result = await reactionApi.getReaction(this.userId, this.$route.params.articleId)
                                         .then(result => result.data.data)
         this.reaction = { ...result }
-        console.log(this.reaction)
       }
       catch(error) {
         console.log(error)
@@ -284,6 +287,7 @@ export default {
             img {
               display: block;
               margin: 0 auto;
+              max-width: 60%;
             }
           }
 
