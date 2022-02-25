@@ -58,7 +58,8 @@
             autocapitalize="off"
             placeholder="비밀번호를 한 번 더 입력해 주세요."
             maxlength="20"
-            required />
+            required
+            @keyup.enter="onLogin(userData)" />
         </div>
         <label>비밀번호 확인</label>
         <div

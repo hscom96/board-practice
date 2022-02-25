@@ -25,7 +25,8 @@
             type="password"
             autocapitalize="off"
             placeholder="비밀번호를 입력해 주세요."
-            required />
+            required
+            @keyup.enter="onLogin(userData)" />
         </div>
         <div
           v-if="error.password"
