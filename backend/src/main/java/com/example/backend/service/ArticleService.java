@@ -49,8 +49,12 @@ public class ArticleService {
     public PagingResponse<ArticleDto> getArticles(int page, int size){
         Page<ArticleDto> articles = articleRepository.findAll(PageRequest.of(page, size))
             .map(ArticleDto::of);
-
         return PagingResponse.of(articles);
     }
 
+    public void delete(Long articleId){
+        articleRepository.findById(articleId)
+            .orElseThrow(() -> {throw new CustomException(ResponseCode.POST_NOT_FOUND);});
+        articleRepository.deleteById(articleId);
+    }
 }
