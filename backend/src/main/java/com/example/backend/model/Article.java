@@ -96,7 +96,6 @@ public class Article extends AuditProperties {
     public void update(Article article){
         this.title = article.getTitle();
         this.content = article.getContent();
-        this.image = article.getImage();
         super.updateModifiedById(article.getModifiedById());
     }
 }
