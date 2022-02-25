@@ -99,5 +99,3 @@ public class Article extends AuditProperties {
         super.updateModifiedById(article.getModifiedById());
     }
 }
-
-
