@@ -29,7 +29,7 @@
             </div>
             <div class="time-info">
               <span>{{ convertTime(articleInfo.created_at) }}</span>
-              <span v-if="isModified(articleInfo.created_at, articleInfo.modified_at)">(수정됨)</span>
+              <!-- <span v-if="isModified(articleInfo.created_at, articleInfo.modified_at)">(수정됨)</span> -->
               ·
               <span>조회 {{ articleInfo.view_cnt }}</span>
             </div>
