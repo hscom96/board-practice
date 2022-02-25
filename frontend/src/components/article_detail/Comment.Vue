@@ -30,7 +30,8 @@
 
       <Toolbox
         v-if="isHover"
-        :comment="comment.value" />
+        :comment="comment.value"
+        :has-sub="comment.subComments && comment.subComments.length > 0" />
     </div>
     <div v-if="comment.subComments && comment.subComments.length">
       <Comment

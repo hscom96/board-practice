@@ -58,7 +58,8 @@ import commentsApi from '~/utils/api/comments'
 export default {
   name: 'Toolbox',
   props: {
-    comment: Object
+    comment: Object,
+    hasSub: Boolean
   },
   data() {
     return {
@@ -71,6 +72,9 @@ export default {
   computed: {
     isNotSub() {
       return this.comment.parentId === -1
+    },
+    isSub() {
+      return this.comment.parentId !== -1
     },
     ...mapState('user', [
       'userId'
@@ -120,6 +124,10 @@ export default {
       .then(() => location.reload())
     },
     onClickDeleteButton() {
+      if(this.hasSub) {
+        alert('답글이 달린 댓글은 삭제할 수 없습니다.')
+        return
+      }
       commentsApi.deleteComment(this.userId, this.$route.params.articleId, this.comment.commentId)
       .catch((error) => console.log(`댓글 삭제 실패! :${error}`))
       .then(() => alert('댓글이 삭제됐습니다.'))
