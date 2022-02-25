@@ -23,7 +23,7 @@
         </div>
 
         <div class="time-info">
-          <span>{{ comment.value.createdAt.split('T').join(' ') }}</span>
+          <span>{{ convertTime(comment.value.createdAt) }}</span>
           <span v-if="isModified(comment.value.createdAt, comment.value.modifiedAt)">(수정됨)</span>
         </div>
       </div>
@@ -45,6 +45,7 @@
 
 <script>
 import Toolbox from './Toolbox'
+import makeTimeString from '~/utils/convert_time'
 
 export default {
   name: 'Comment',
@@ -61,6 +62,9 @@ export default {
   methods: {
     isModified(createdAt, modifiedAt) {
       return createdAt !== modifiedAt
+    },
+    convertTime(timestamp) {
+      return makeTimeString(timestamp)
     }
   }
 }
