@@ -2,8 +2,8 @@ package com.example.backend.service;
 
 import com.example.backend.common.constants.ResponseCode;
 import com.example.backend.common.exception.CustomException;
-import com.example.backend.dto.CommentListDto;
 import com.example.backend.dto.CommentDto;
+import com.example.backend.dto.CommentListDto;
 import com.example.backend.dto.Comments;
 import com.example.backend.dto.request.CommentCreateRequest;
 import com.example.backend.dto.request.CommentUpdateRequest;
@@ -14,6 +14,7 @@ import com.example.backend.repository.ArticleRepository;
 import com.example.backend.repository.CommentRepository;
 import com.example.backend.repository.UserRepository;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -98,8 +99,29 @@ public class CommentService {
     private Comments getCommentsBy(Long articleId, Pageable pageable) {
         List<Comment> comments = commentRepository.findByArticleId(articleId, pageable);
 
+        List<CommentDto> commentDtos = comments.stream()
+            .map(
+                comment -> {
+                    Long createdById = comment.getCreatedById();
+
+                    User user = findUserByArticleId(createdById);
+                    return CommentDto.from(comment, user);
+                }
+            )
+            .collect(Collectors.toList());
+
         return Comments.builder()
-            .comments(comments).build();
+            .comments(commentDtos).build();
+    }
+
+    private User findUserByArticleId(Long articleId) {
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> {
+                throw new CustomException(ResponseCode.POST_NOT_FOUND);
+            });
+
+        return userRepository.findById(article.getCreatedById())
+            .orElseThrow(() -> {throw new CustomException(ResponseCode.USER_NOT_FOUND);});
     }
 
     private void validateAuth(Long commentId, Long currentUserId) {
