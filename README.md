@@ -7,6 +7,10 @@
 - 스키마 'board' 생성
 
 #### 2. Springboot 환경 설정
+- MySQL Dependencies 설정
+```gradle
+implementation 'mysql:mysql-connector-java'
+```
 - DB관련 `application.yml` 값 설정 필요
 ```yml
   datasource:
