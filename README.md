@@ -7,7 +7,7 @@
 - 스키마 'board' 생성
 
 #### 2. Springboot 환경 설정
-- DB 관련 하단 값들 설정 필요
+- DB관련 `application.yml` 값 설정 필요
 ```yml
   datasource:
     url: jdbc:mysql://localhost:3306/board?autoReconnect=true  # DB URL 설정 필요
