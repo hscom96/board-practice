@@ -59,6 +59,7 @@ public class ArticleService {
             .orElseThrow(() -> {
                 throw new CustomException(ResponseCode.POST_NOT_FOUND);
             });
+        article.increaseViewCnt(); articleRepository.save(article);
 
         return ArticleDto.of(article);
     }
