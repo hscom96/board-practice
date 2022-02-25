@@ -51,17 +51,20 @@
           <div class="reaction-wrapper">
             <span
               class="reaction btn-reaction"
-              :class="articleInfo.is_like ? 'clicked' : ''">
+              :class="reaction.liked ? 'clicked' : ''"
+              @click="onClickReactionButton('liked')">
               👍 {{ articleInfo.like_cnt }}
             </span>
             <span
               class="reaction btn-reaction"
-              :class="articleInfo.is_sad ? 'clicked' : ''">
+              :class="reaction.sad ? 'clicked' : ''"
+              @click="onClickReactionButton('sad')">
               😭 {{ articleInfo.sad_cnt }}
             </span>
             <span
               class="reaction btn-reaction"
-              :class="articleInfo.is_upset ? 'clicked' : ''">
+              :class="reaction.upset ? 'clicked' : ''"
+              @click="onClickReactionButton('upset')">
               😡 {{ articleInfo.upset_cnt }}
             </span>
           </div>
@@ -82,11 +85,13 @@ import requestArticleDetail from '~/utils/api/article_detail'
 import makeTimeString from '~/utils/convert_time'
 import { mapState } from 'vuex'
 import articleApi from '~/utils/api/article'
+import reactionApi from '~/utils/api/reaction'
 
 export default {
   data() {
     return {
       articleInfo: {},
+      reaction: {},
     }
   },
   computed: {
@@ -103,6 +108,7 @@ export default {
   methods: {
     init() {
       this.getArticleDetail()
+      this.getReaction()
     },
     async getArticleDetail() {
       try {
@@ -112,6 +118,17 @@ export default {
       }
       catch(error) {
         alert(error)
+      }
+    },
+    async getReaction() {
+      try {
+        const result = await reactionApi.getReaction(this.userId, this.$route.params.articleId)
+                                        .then(result => result.data.data)
+        this.reaction = { ...result }
+        console.log(this.reaction)
+      }
+      catch(error) {
+        console.log(error)
       }
     },
     isModified(created_at, modified_at) {
@@ -131,6 +148,30 @@ export default {
     },
     onClickEditArticleButton() {
       document.location.href = `/edit/${this.articleInfo.article_id}`
+    },
+    onClickReactionButton(type) {
+      if(!this.reaction[type]) {
+        const requestType = type === 'liked' ? 'like' : type
+        reactionApi.addReaction(this.userId, this.$route.params.articleId, requestType)
+                  .then(() => {
+                    this.reaction[type] = true
+                    this.articleInfo = { 
+                      ...this.articleInfo, 
+                      [`${requestType}_cnt`]: this.articleInfo[`${requestType}_cnt`] + 1
+                    }
+                  })
+      }
+      else {
+        const requestType = type === 'liked' ? 'like' : type
+        reactionApi.cancelReaction(this.userId, this.$route.params.articleId, requestType)
+                  .then(() => {
+                    this.reaction[type] = false
+                    this.articleInfo = { 
+                      ...this.articleInfo, 
+                      [`${requestType}_cnt`]: this.articleInfo[`${requestType}_cnt`] - 1
+                    }
+                  })
+      }
     }
   },
 }
