@@ -92,11 +92,11 @@ export default {
       this.complete = complete
     },
     checkUserName() {
-      if (this.username.trim().length >= 2) {
+      if (this.username.trim().length > 0) {
         this.error.username = false
         this.isChecked.username = true
       } else {
-        this.error.username = '닉네임은 2자 이상이어야 합니다.'
+        this.error.username = 'ID를 입력해주세요.'
         this.isChecked.username = false
       }
     },
