@@ -15,7 +15,7 @@ const actions = {
         commit('SET_USER_ID', data.data.user_id)
         commit('SET_USERNAME', data.data.user_name)
         commit('SET_NICKNAME', data.data.name)
-        router.push({ name: 'ArticleList' })
+        router.push('/')
       } else {
         alert(data.message)
       }
