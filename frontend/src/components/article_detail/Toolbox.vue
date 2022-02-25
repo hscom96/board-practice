@@ -116,6 +116,11 @@ export default {
         return
       }
 
+      if(this.comment.createdById !== this.userId) {
+        alert('댓글 작성자가 아닙니다.')
+        return
+      }
+
       commentsApi.editComment(this.userId, this.$route.params.articleId, this.comment.commentId, {
         content: this.editText,
       })
@@ -128,6 +133,12 @@ export default {
         alert('답글이 달린 댓글은 삭제할 수 없습니다.')
         return
       }
+
+      if(this.comment.createdById !== this.userId) {
+        alert('댓글 작성자가 아닙니다.')
+        return
+      }
+
       commentsApi.deleteComment(this.userId, this.$route.params.articleId, this.comment.commentId)
       .catch((error) => console.log(`댓글 삭제 실패! :${error}`))
       .then(() => alert('댓글이 삭제됐습니다.'))
