@@ -176,7 +176,7 @@ export default {
     margin-top: 20px;
     width: 90%;
     max-width: $width-default;
-    min-height: calc(100vh - 188px);
+    min-height: calc(100vh - 190px);
     box-sizing: border-box;
     margin: 0 auto;
     padding: 25px 0;
@@ -235,6 +235,7 @@ export default {
         box-shadow: none;
         border: none;
         outline: none;
+        font-family: inherit;
       }
 
       input {

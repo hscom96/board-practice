@@ -90,14 +90,15 @@ export default {
 <style lang="scss" scoped>
 .article-list {
   background-color: #F7F8F9;
-    min-height: 90vh;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    color: #495057;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+  min-height: calc(100vh - 190px);
+  box-sizing: border-box;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  color: #495057;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 
   .inner {
     background-color: #FFFFFF;

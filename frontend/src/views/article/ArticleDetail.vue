@@ -1,8 +1,10 @@
 <template>
   <div>
     <Header />
-    <ArticleDetail />
-    <CommentList />
+    <div class="content">
+      <ArticleDetail />
+      <CommentList />
+    </div>
     <Footer />
   </div>
 </template>
@@ -23,3 +25,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .content {
+    min-height: calc(100vh - 190px);
+    box-sizing: border-box;
+  }
+</style>

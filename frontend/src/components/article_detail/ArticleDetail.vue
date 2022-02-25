@@ -147,7 +147,7 @@ export default {
       articleApi.deleteArticle(this.userId, this.articleInfo.article_id)
       .catch((error) => console.log(`게시글 삭제 실패! :${error}`))
       .then(() => alert('게시글이 삭제됐습니다.'))
-      .then(() => document.location.href = '/article')
+      .then(() => document.location.href = '/')
     },
     onClickEditArticleButton() {
       document.location.href = `/edit/${this.articleInfo.article_id}`
@@ -219,12 +219,12 @@ export default {
 
         .label-buy {
           background-color: #FFFFFF;
-          color: $color-primary;
-          border: 1px solid $color-primary;
+          color: $color-secondary;
+          border: 1px solid $color-secondary;
         }
 
         .label-sell {
-          background-color: $color-primary;
+          background-color: $color-secondary;
           color: #FFFFFF;
           border: 1px solid #FFFFFF;
         }

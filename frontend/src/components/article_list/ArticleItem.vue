@@ -91,12 +91,12 @@ export default {
 
       .label-buy {
         background-color: #FFFFFF;
-        color: $color-primary;
-        border: 1px solid $color-primary;
+        color: $color-secondary;
+        border: 1px solid $color-secondary;
       }
 
       .label-sell {
-        background-color: $color-primary;
+        background-color: $color-secondary;
         color: #FFFFFF;
         border: 1px solid #FFFFFF;
       }
