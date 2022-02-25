@@ -23,7 +23,12 @@ public class ArticleService {
     private final UserRepository userRepository;
 
     public ArticleDto write(ArticleWriteRequest articleWriteRequest, Long currentUserId) {
-        Article article = articleRepository.save(articleWriteRequest.toEntity(currentUserId));
+        User user = userRepository.findById(currentUserId)
+            .orElseThrow(() -> {
+                throw new CustomException(ResponseCode.USER_NOT_FOUND);
+            });
+
+        Article article = articleRepository.save(articleWriteRequest.toEntity(currentUserId, user));
         return ArticleDto.of(article);
     }
 
@@ -34,7 +39,11 @@ public class ArticleService {
                 throw new CustomException(ResponseCode.POST_NOT_FOUND);
             });
         validateUserId(currentUserId, article);
-        article.update(articleUpdateRequest.toEntity(currentUserId));
+        User user = userRepository.findById(article.getCreatedById())
+            .orElseThrow(() -> {
+                throw new CustomException(ResponseCode.USER_NOT_FOUND);
+            });
+        article.update(articleUpdateRequest.toEntity(currentUserId,user));
         Article updatedArticle = articleRepository.save(article);
         return ArticleDto.of(updatedArticle);
     }
