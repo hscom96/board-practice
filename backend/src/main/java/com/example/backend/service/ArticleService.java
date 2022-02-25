@@ -60,12 +60,7 @@ public class ArticleService {
                 throw new CustomException(ResponseCode.POST_NOT_FOUND);
             });
 
-        User user = userRepository.findById(article.getCreatedById())
-            .orElseThrow(() -> {
-                throw new CustomException(ResponseCode.USER_NOT_FOUND);
-            });
-
-        return ArticleDto.of(article, user);
+        return ArticleDto.of(article);
     }
 
     public PagingResponse<ArticleDto> getArticles(int page, int size) {

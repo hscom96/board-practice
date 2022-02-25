@@ -78,25 +78,5 @@ public class ArticleDto {
             .modifiedBy(article.getModifiedBy())
             .build();
     }
-
-    public static ArticleDto of(Article article, User user) {
-        return ArticleDto.builder()
-            .articleId(article.getArticleId())
-            .title(article.getTitle())
-            .content(article.getContent())
-            .image(article.getImage())
-            .createdById(article.getCreatedById())
-            .modifiedById(article.getModifiedById())
-            .likeCnt(article.getLikeCnt())
-            .sadCnt(article.getSadCnt())
-            .upsetCnt(article.getUpsetCnt())
-            .viewCnt(article.getViewCnt())
-            .label(article.getLabel())
-            .createdAt(Timeutil.convertToTimestamp(article.getCreatedAt()))
-            .modifiedAt(Timeutil.convertToTimestamp(article.getModifiedAt()))
-            .commentCnt(article.getCommentCnt())
-            .createdBy(user.getUserName())
-            .modifiedBy(user.getUserName()).build();
-    }
 }
 
