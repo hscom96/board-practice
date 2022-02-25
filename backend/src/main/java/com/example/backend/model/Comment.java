@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,13 +32,21 @@ public class Comment extends AuditProperties {
     @Column(name = "parent_id", nullable = false)
     private Long parentId;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String createdBy;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String modifiedBy;
+
     @Builder
     public Comment(LocalDateTime createdAt, LocalDateTime modifiedAt, Long commentId, String content,
-        Long articleId, Long parentId, Long createdById, Long modifiedById) {
+        Long articleId, Long parentId, Long createdById, Long modifiedById, String createdBy, String modifiedBy) {
         super(createdAt, modifiedAt, createdById, modifiedById);
         this.commentId = commentId;
         this.content = content;
         this.articleId = articleId;
         this.parentId = parentId;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
     }
 }

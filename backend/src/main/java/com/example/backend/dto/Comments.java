@@ -10,5 +10,5 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class Comments {
-    private  List<Comment> comments;
+    private List<Comment> comments;
 }
