@@ -16,6 +16,7 @@ import com.example.backend.repository.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -103,9 +104,7 @@ public class CommentService {
             .filter(comment -> comment.getArticleId() == articleId)
             .map(
                 comment -> {
-                    Long createdById = comment.getCreatedById();
-
-                    User user = findUserByArticleId(createdById);
+                    User user = findUserByArticleId(articleId);
                     return CommentDto.from(comment, user);
                 }
             )
