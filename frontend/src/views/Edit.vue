@@ -1,5 +1,5 @@
 <template>
-  <div class="write">
+  <div class="update">
     <Header />
     <div class="content">
       <Form />
@@ -14,7 +14,7 @@ import Footer from '~/components/Footer'
 import Form from '~/components/write/WriteForm'
 
 export default {
-  name: 'Write',
+  name: 'Edit',
   components: {
     Header,
     Form,
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .write {
+  .update {
     .fix-bottom {
       position: absolute;
       left: 0;

@@ -3,6 +3,7 @@ import Home from '~/views/Home'
 import Login from '~/views/user/Login'
 import Signup from '~/views/user/Signup'
 import Write from '~/views/Write'
+import Edit from '~/views/Edit'
 import ArticleDetail from '~/views/article/ArticleDetail'
 import ArticleList from '~/views/article/ArticleList'
 
@@ -28,6 +29,11 @@ export default createRouter({
       path: '/write',
       name: 'Write',
       component: Write
+    },
+    {
+      path: '/edit/:id',
+      name: 'Edit',
+      component: Edit
     },
     {
       path: '/article',
