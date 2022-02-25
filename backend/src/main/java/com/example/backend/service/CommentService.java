@@ -16,6 +16,7 @@ import com.example.backend.repository.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -97,10 +98,11 @@ public class CommentService {
     }
 
     private Comments getCommentsBy(Long articleId, Pageable pageable) {
-        List<Comment> comments = commentRepository.findByArticleId(articleId, pageable);
+        List<Comment> comments = commentRepository.findAll(pageable).stream()
+            .filter(comment -> comment.getArticleId() == articleId)
+            .collect(Collectors.toList());
 
         List<CommentDto> commentDtos = comments.stream()
-            .filter(comment -> comment.getArticleId() == articleId)
             .map(
                 comment -> {
                     Long createdById = comment.getCreatedById();
