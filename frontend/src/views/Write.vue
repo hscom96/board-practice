@@ -4,7 +4,7 @@
     <div class="content">
       <Form />
     </div>
-    <Footer class="fix-bottom" />
+    <Footer />
   </div>
 </template>
 
@@ -22,14 +22,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  .write {
-    .fix-bottom {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-    }
-  }
-</style>

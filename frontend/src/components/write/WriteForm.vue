@@ -176,7 +176,10 @@ export default {
     margin-top: 20px;
     width: 90%;
     max-width: $width-default;
-    margin: 25px auto;
+    min-height: calc(100vh - 188px);
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 25px 0;
     
     * {
       box-sizing: border-box;
