@@ -98,16 +98,13 @@ public class CommentService {
     }
 
     private Comments getCommentsBy(Long articleId, Pageable pageable) {
-        List<Comment> comments = commentRepository.findAll(pageable).stream()
-            .filter(comment -> comment.getArticleId() == articleId)
-            .collect(Collectors.toList());
+        List<Comment> comments = commentRepository.findByArticleId(articleId, pageable);
 
         List<CommentDto> commentDtos = comments.stream()
+            .filter(comment -> comment.getArticleId() == articleId)
             .map(
                 comment -> {
-                    Long createdById = comment.getCreatedById();
-
-                    User user = findUserByArticleId(createdById);
+                    User user = findUserByArticleId(articleId);
                     return CommentDto.from(comment, user);
                 }
             )
