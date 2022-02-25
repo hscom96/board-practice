@@ -100,6 +100,7 @@ public class CommentService {
         List<Comment> comments = commentRepository.findByArticleId(articleId, pageable);
 
         List<CommentDto> commentDtos = comments.stream()
+            .filter(comment -> comment.getArticleId() == articleId)
             .map(
                 comment -> {
                     Long createdById = comment.getCreatedById();
