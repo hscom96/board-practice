@@ -1,12 +1,13 @@
 # 11st-board-practice
 
 
-## 백엔드 데모 방법
+## 📌 백엔드 데모 방법
 
 #### 1. MySQL 설정
 - 스키마 'board' 생성
 
 #### 2. Springboot 환경 설정
+
 - DB관련 `application.yml` 값 설정 필요
 ```yml
   datasource:
