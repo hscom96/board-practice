@@ -11,6 +11,9 @@
         <h3 class="profile-name">
           {{ nickname }}
         </h3>&nbsp;님
+        <button @click="logout">
+          로그아웃
+        </button>
       </div>
     </div>
   </header>
@@ -18,7 +21,7 @@
 
 <script>
 import Logo from './Logo'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -28,6 +31,9 @@ export default {
     ...mapState('user', [
       'nickname'
     ])
+  },
+  methods: {
+    ...mapActions('user', ['logout'])
   }
 }
 </script>
@@ -78,6 +84,23 @@ header {
 
       .profile-name {
         font-weight: 700;
+      }
+
+      button {
+        padding: 5px 10px;
+        margin-left: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #fff;      
+
+        background-color: $color-grey;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        
+        &:hover {
+          transform: scale(1.05);
+        }
       }
     }
   }

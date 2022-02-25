@@ -36,6 +36,10 @@ const actions = {
       console.log(err.response)
     }
   },
+  logout({ commit }) {
+    commit('RESET_USER_INFO')
+    router.push({ name: 'Login' })
+  }
 }
 
 const mutations = {
@@ -48,6 +52,11 @@ const mutations = {
   SET_NICKNAME(state, payload) {
     state.nickname = payload
   },
+  RESET_USER_INFO(state) {
+    state.userId = null
+    state.username = ''
+    state.nickname = ''
+  }
 }
 
 const getters = {
