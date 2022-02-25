@@ -1,14 +1,16 @@
 <template>
   <div class="image">
     <div class="empty-box">
-      <img
-        v-if="origin"
-        :src="imagePath"
-        alt="" />
       <label for="input-file">
-        <i
-          v-if="!origin"
-          class="fa-solid fa-plus add-icon"></i>
+        <img
+          v-if="origin"
+          :src="imagePath"
+          alt="" />
+        <div
+          v-else
+          class="add-box">
+          <i class="fa-solid fa-plus add-icon"></i>
+        </div>
       </label>
     </div>
     <input
@@ -40,7 +42,7 @@ export default {
     imagePath() {
       return process.env.S3_SERVER_URL + this.origin
     },
-    photoKey() {
+    photoKey() { 
       return this.username + Date.now() + '.jpg'
     }
   },
@@ -82,6 +84,7 @@ export default {
       }).promise()
         .then((res) => {
           this.$emit('upload', res.Key)
+          console.log(res)
         })
     }
   }
@@ -99,10 +102,20 @@ export default {
       border-radius: 10px;
       overflow: hidden;
 
+      label {
+        cursor: pointer;
+        width: 100%;
+      }
+
       img {
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: cover;
+      }
+
+      .add-box {
+        width: 100%;
+        height: 100%;
       }
 
       i {
@@ -113,10 +126,7 @@ export default {
         
         font-size: 24px;
         color: $color-grey;
-        cursor: pointer;
       }
-
-      
     }
     input[type="file"]{
       display: none;
