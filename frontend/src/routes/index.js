@@ -4,6 +4,7 @@ import Login from '~/views/user/Login'
 import Signup from '~/views/user/Signup'
 import Write from '~/views/Write'
 import Edit from '~/views/Edit'
+import Error from '~/views/Error'
 import ArticleDetail from '~/views/article/ArticleDetail'
 import ArticleList from '~/views/article/ArticleList'
 
@@ -49,6 +50,15 @@ const routes = [
     meta: { 
       requireAuth: true 
     }
+  },
+  {
+    path: '/:pathMatch(.*)*', 
+    redirect: '/404'
+  },
+  {
+      path: '/404',
+      name : 'Error',
+      component : Error
   },
 ]
 
