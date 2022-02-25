@@ -75,6 +75,7 @@
         }
       }
       .error-text {
+        max-width: 260px;
         margin-top: 3px;
         padding-left: 20px;
         color: $color-grey;
@@ -101,6 +102,7 @@
   .btn-submit {
     width: 300px;
     height: 45px;
+    margin-top: 20px;
     
     background-color: $color-primary;
     color: #f1f1f1;

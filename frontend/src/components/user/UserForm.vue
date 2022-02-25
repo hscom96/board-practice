@@ -2,14 +2,9 @@
   <div class="user-form">
     <Logo />
     <LoginForm
-      v-if="type === 'Login'"
-      @activate="toggleButton" />
+      v-if="type === 'Login'" />
     <SignupForm
-      v-if="type === 'Signup'"
-      @activate="toggleButton" />
-    <button :class="[btnStatus ? '' : 'disable', 'btn-submit']">
-      {{ type }}
-    </button>
+      v-if="type === 'Signup'" />
     <div
       v-if="type === 'Login'"
       class="move-signup">
@@ -34,7 +29,6 @@ export default {
   data() {
     return {
       type: '',
-      btnStatus: false,
     }
   },
   watch: {
@@ -45,11 +39,6 @@ export default {
   created() {
     this.type = this.$route.name
   },
-  methods: {
-    toggleButton(val) {
-      this.btnStatus = val
-    }
-  }
 }
 </script>
 

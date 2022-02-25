@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import requestArticleList from '../../utils/article_list'
+import requestArticleList from '~/utils/api/article_list'
 import Loading from './loading.vue'
 import ArticleItem from './ArticleItem'
 
@@ -64,8 +64,14 @@ export default {
       try {
         this.isLoading = true
         
-        const { value: { content }} = await requestArticleList(this.requestPage, this.requestSize)
-        this.articleList = [...this.articleList, ...content]
+        const result = await requestArticleList(this.requestPage, this.requestSize)
+                              .then(result => result.data.data)
+
+        if(this.requestPage + 1 > result.total_page) {
+          throw new Error('더 이상 페이지가 존재하지 않습니다')
+        }
+        
+        this.articleList = [...this.articleList, ...result.content]
         this.requestPage++
       }
       catch(error) {

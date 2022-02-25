@@ -8,7 +8,7 @@
             v-model="username"
             type="text"
             autocapitalize="off"
-            placeholder="계정을 입력해 주세요."
+            placeholder="ID를 입력해 주세요."
             required />
         </div>
         <div
@@ -34,10 +34,17 @@
         </div>
       </div>
     </div>
+    <button 
+      :class="[complete ? '' : 'disable', 'btn-submit']"
+      @click="onLogin(userData)">
+      로그인
+    </button>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'UserFormLogin',
   data() {
@@ -55,6 +62,14 @@ export default {
       complete: false
     }
   },
+  computed: {
+    userData() {
+      return {
+        'userName': this.username,
+        'password': this.password
+      }
+    }
+  },
   watch: {
     username() {
       this.checkForm()
@@ -62,11 +77,9 @@ export default {
     password() {
       this.checkForm()
     },
-    complete() {
-      this.$emit('activate', this.complete)
-    }
   },
   methods: {
+    ...mapActions('user', ['onLogin']),
     checkForm() {
       this.checkUserName()
       this.checkPassword()

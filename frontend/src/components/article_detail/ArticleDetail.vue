@@ -7,9 +7,13 @@
           <div :class="[articleInfo.label === '구매' ? 'label-buy' : 'label-sell', 'label']">
             {{ articleInfo.label === '구매' ? '구매' : '판매' }}
           </div>
-          <div class="icon-wrapper">
+          <div
+            v-if="isSameId"
+            class="icon-wrapper">
             <i class="fa-solid fa-pencil"></i>
-            <i class="fa-solid fa-trash"></i>
+            <i
+              class="fa-solid fa-trash"
+              @click="onClickDeteleArticleButton"></i>
           </div>
         </header>
 
@@ -22,10 +26,10 @@
               <span>{{ articleInfo.created_by }}</span>
             </div>
             <div class="time-info">
-              <span>{{ articleInfo.created_at }}</span>
+              <span>{{ convertTime(articleInfo.created_at) }}</span>
               <span v-if="isModified(articleInfo.created_at, articleInfo.modified_at)">(수정됨)</span>
               ·
-              <span>조회 {{ articleInfo.view_count }}</span>
+              <span>조회 {{ articleInfo.view_cnt }}</span>
             </div>
           </div>
 
@@ -72,12 +76,23 @@
 </template>
 
 <script>
-import requestArticleDetail from '~/utils/article_detail'
+import requestArticleDetail from '~/utils/api/article_detail'
+import makeTimeString from '~/utils/convert_time'
+import { mapState } from 'vuex'
+import articleApi from '~/utils/api/article'
 
 export default {
   data() {
     return {
       articleInfo: {},
+    }
+  },
+  computed: {
+    ...mapState('user', [
+      'userId'
+    ]),
+    isSameId() {
+      return this.articleInfo.created_by_id === this.userId
     }
   },
   mounted() {
@@ -89,8 +104,9 @@ export default {
     },
     async getArticleDetail() {
       try {
-        const articleDetail = await requestArticleDetail(this.$route.params.articleId)
-        this.articleInfo = { ...articleDetail }
+        const result = await requestArticleDetail(this.$route.params.articleId)
+                              .then(result => result.data.data)
+        this.articleInfo = { ...result }
       }
       catch(error) {
         alert(error)
@@ -101,6 +117,15 @@ export default {
     },
     onClickArticleListButton() {
       this.$router.push('/article')
+    },
+    convertTime(timestamp) {
+      return makeTimeString(timestamp)
+    },
+    onClickDeteleArticleButton() {
+      articleApi.deleteArticle(this.userId, this.articleInfo.article_id)
+      .catch((error) => console.log(`게시글 삭제 실패! :${error}`))
+      .then(() => alert('게시글이 삭제됐습니다.'))
+      .then(() => document.location.href = '/article')
     }
   },
 }

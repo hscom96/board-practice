@@ -2,25 +2,25 @@
   <div class="signup-form">
     <div class="input-group signup">
       <div class="input-box">
-        <div :class="[isChecked.name ? 'checked' : '', 'input']">
-          <input 
-            v-model="name"
-            type="text"
-            autocapitalize="off"
-            placeholder="이름을 입력해 주세요."
-            required />
-        </div>
-        <label>이름</label>
-        <div
-          v-if="error.name"
-          class="error-text">
-          {{ error.name }}
-        </div>
-      </div>
-      <div class="input-box">
         <div :class="[isChecked.username ? 'checked' : '', 'input']">
           <input 
             v-model="username"
+            type="text"
+            autocapitalize="off"
+            placeholder="ID를 입력해 주세요."
+            required />
+        </div>
+        <label>ID</label>
+        <div
+          v-if="error.username"
+          class="error-text">
+          {{ error.username }}
+        </div>
+      </div>
+      <div class="input-box">
+        <div :class="[isChecked.name ? 'checked' : '', 'input']">
+          <input 
+            v-model="name"
             type="text"
             autocapitalize="off"
             placeholder="닉네임을 입력해 주세요."
@@ -28,9 +28,9 @@
         </div>
         <label>닉네임</label>
         <div
-          v-if="error.username"
+          v-if="error.name"
           class="error-text">
-          {{ error.username }}
+          {{ error.name }}
         </div>
       </div>
       <div class="input-box">
@@ -40,6 +40,7 @@
             type="password"
             autocapitalize="off"
             placeholder="비밀번호를 입력해 주세요."
+            maxlength="20"
             required />
         </div>
         <label>비밀번호</label>
@@ -56,6 +57,7 @@
             type="password"
             autocapitalize="off"
             placeholder="비밀번호를 한 번 더 입력해 주세요."
+            maxlength="20"
             required />
         </div>
         <label>비밀번호 확인</label>
@@ -66,12 +68,19 @@
         </div>
       </div>
     </div>
+    <button 
+      :class="[complete ? '' : 'disable', 'btn-submit']"
+      @click="onSignup(userData)">
+      회원가입
+    </button>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'UserFormLogin',
+import { mapActions } from 'vuex'
+
+export default {  
+  name: 'UserFormSignup',
   data() {
     return {
       name: '',
@@ -93,6 +102,15 @@ export default {
       complete: false
     }
   },
+  computed: {
+    userData() {
+      return {
+        'name': this.name,
+        'userName': this.username,
+        'password': this.password
+      }
+    }
+  },
   watch: {
     name() {
       this.checkForm()
@@ -106,11 +124,9 @@ export default {
     passwordConfirm() {
       this.checkForm()
     },
-    complete() {
-      this.$emit('activate', this.complete)
-    }
   },
   methods: {
+    ...mapActions('user', ['onSignup']),
     checkForm() {
       this.checkName()
       this.checkUserName()
@@ -141,11 +157,13 @@ export default {
       }
     },
     checkPassword() {
-      if (this.password.trim().length >= 8) {
+      const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,20}/
+
+      if (pattern.test(this.password.trim())) {
         this.error.password = false
         this.isChecked.password = true
       } else {
-        this.error.password = '비밀번호는 8자 이상이어야 합니다.'
+        this.error.password = '비밀번호는 영문 대・소문자와 숫자, 특수기호가 각 1개 이상씩 포함된 8~20자여야 합니다.'
         this.isChecked.password = false
       }
 

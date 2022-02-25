@@ -8,7 +8,7 @@
       <div class="comments">
         <Comment
           v-for="comment in comments"
-          :key="comment.value.comment_id"
+          :key="comment.value.commentId"
           :comment="comment"
           :class="[comment.subComments.length ? 'has-sub' : '', 'parent-comment']" />
       </div>
@@ -31,6 +31,7 @@
 
 <script>
 import requestComments from '~/utils/comments'
+import commentsApi from '~/utils/api/comments'
 import Comment from './Comment'
 import { mapState, mapActions  } from 'vuex'
 
@@ -47,6 +48,9 @@ export default {
     },
     ...mapState('comments', [
       'comments'
+    ]),
+    ...mapState('user', [
+      'userId'
     ])
   },
   mounted() {
@@ -69,8 +73,8 @@ export default {
         alert(error)
       }
     },
-    isModified(created_at, modified_at) {
-      return created_at !== modified_at
+    isModified(createdAt, modifiedAt) {
+      return createdAt !== modifiedAt
     },
     onClickWriteButton() {
       if(this.inputComment.length <= 0) {
@@ -81,28 +85,15 @@ export default {
       this.addNewComment(this.inputComment)
     },
     addNewComment(text) {
-      // Todo: Request -> result = Response -> this.comment.push({ value: result, subComments: [] })
-
-      const data = { 
-        value: {
-          'comment_id' : Math.floor(Math.random()*10000),
-          'parent_id' : -1,
-          'article_id' : 0,
-          'content' : text,
-          'created_at': '2022-02-17 22:22:22',
-          'created_by': '새 댓글 작성자',
-          'created_by_id': 100, 
-          'modified_at': '2022-02-22 22:22:22',
-          'modified_by': '새 댓글 작성자',
-          'modified_by_id': 100,
-        },
-        subComments: []
-      }
-
-      this.addComment(data)
-
-      this.inputComment = ''
-    }
+      commentsApi.addComment(this.userId, this.$route.params.articleId, {
+        content: text,
+        parentId: -1
+      })
+      .catch((error) => console.log(`댓글 등록 실패! :${error}`))
+      .then(result => result.data.data)
+      .then(() => alert('댓글이 등록됐습니다.'))
+      .then(() => location.reload())
+    },
   },
 }
 </script>
