@@ -15,7 +15,7 @@
           <div class="user-icon">
             <i class="fa-solid fa-user"></i>
           </div>
-          <span>{{ comment.value.created_by }}</span>
+          <span>{{ comment.value.createdBy }}</span>
         </div>
 
         <div class="content">
@@ -23,8 +23,8 @@
         </div>
 
         <div class="time-info">
-          <span>{{ comment.value.created_at }}</span>
-          <span v-if="isModified(comment.value.created_at, comment.value.modified_at)">(수정됨)</span>
+          <span>{{ comment.value.createdAt.split('T').join(' ') }}</span>
+          <span v-if="isModified(comment.value.createdAt, comment.value.modifiedAt)">(수정됨)</span>
         </div>
       </div>
 
@@ -35,7 +35,7 @@
     <div v-if="comment.subComments && comment.subComments.length">
       <Comment
         v-for="subComment in comment.subComments"
-        :key="subComment.comment_id" 
+        :key="subComment.commentId" 
         :comment="subComment"
         :sub="true"
         class="sub-comment" />
@@ -59,8 +59,8 @@ export default {
     }
   },
   methods: {
-    isModified(created_at, modified_at) {
-      return created_at !== modified_at
+    isModified(createdAt, modifiedAt) {
+      return createdAt !== modifiedAt
     }
   }
 }

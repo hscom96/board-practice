@@ -18,7 +18,7 @@
 
     <div class="summary">
       <div class="time">
-        {{ article.created_at }}
+        {{ convertTime(article.created_at) }}
       </div>
       <div class="count">
         <div class="like">
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import makeTimeString from '~/utils/convert_time'
+
 export default {
   name: 'ArticleItem',
   props: {
@@ -47,6 +49,9 @@ export default {
     },
     onClickArticleItem() {
       this.$router.push(`/article/${this.article.article_id}`)
+    },
+    convertTime(timestamp) {
+      return makeTimeString(timestamp)
     }
   }
 }
