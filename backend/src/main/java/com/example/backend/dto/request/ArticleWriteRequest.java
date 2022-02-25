@@ -1,6 +1,7 @@
 package com.example.backend.dto.request;
 
 import com.example.backend.model.Article;
+import com.example.backend.model.User;
 import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +22,7 @@ public class ArticleWriteRequest {
     private String label;
 
     public Article
-    toEntity(Long currentUserId) {
+    toEntity(Long currentUserId, User user) {
         return Article.builder()
             .viewCnt(0)
             .upsetCnt(0)
@@ -33,6 +34,8 @@ public class ArticleWriteRequest {
             .label(label)
             .createdById(currentUserId)
             .modifiedById(currentUserId)
+            .createdBy(user.getUserName())
+            .modifiedBy(user.getUserName())
             .build();
     }
 

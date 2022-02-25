@@ -73,7 +73,10 @@ public class ArticleDto {
             .label(article.getLabel())
             .createdAt(Timeutil.convertToTimestamp(article.getCreatedAt()))
             .modifiedAt(Timeutil.convertToTimestamp(article.getModifiedAt()))
-            .commentCnt(article.getCommentCnt()).build();
+            .commentCnt(article.getCommentCnt())
+            .createdBy(article.getCreatedBy())
+            .modifiedBy(article.getModifiedBy())
+            .build();
     }
 
     public static ArticleDto of(Article article, User user) {

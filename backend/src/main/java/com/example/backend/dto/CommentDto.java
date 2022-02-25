@@ -1,7 +1,6 @@
 package com.example.backend.dto;
 
 import com.example.backend.common.util.Timeutil;
-import com.example.backend.dto.common.CommentProperties;
 import com.example.backend.model.Comment;
 import com.example.backend.model.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,7 +11,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class CommentDto extends CommentProperties {
+public class CommentDto {
 
     private Long commentId;
     private Long parentId;
