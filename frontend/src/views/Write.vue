@@ -2,10 +2,6 @@
   <div class="write">
     <Header />
     <div class="content">
-      <header>
-        <h1>게시글 등록</h1>
-        <button>등록</button>
-      </header>
       <Form />
     </div>
     <Footer class="fix-bottom" />
@@ -30,40 +26,6 @@ export default {
 <style lang="scss" scoped>
   .write {
     height: fit-content;
-    
-    .content {
-      width: 90%;
-      max-width: $width-default;
-      margin: 25px auto;
-
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        h1 {
-          font-size: 18px;
-          font-weight: 700;
-          color: $color-darkgrey;
-        }
-
-        button {
-          padding: 5px 20px;
-
-          font-size: 16px;
-          font-weight: 700;
-          color: #fff;      
-
-          background-color: $color-primary;
-          border-radius: 5px;
-          border: none;
-
-          &:hover {
-            transform: scale(1.05);
-          }
-        }
-      }
-    }
     .fix-bottom {
       position: absolute;
       left: 0;

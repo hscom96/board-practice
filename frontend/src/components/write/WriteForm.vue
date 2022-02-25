@@ -1,5 +1,13 @@
 <template>
   <div class="write-form">
+    <header>
+      <h1>게시글 등록</h1>
+      <button
+        :class="[complete ? '' : 'disabled']"
+        @click="onCreate">
+        등록
+      </button>
+    </header>
     <div class="input-box">
       <input
         type="text"
@@ -13,12 +21,12 @@
       </div>
       <input
         id="option-sell"
-        v-model="type"
+        v-model="label"
         value="판매"
         type="radio" />
       <input
         id="option-buy"
-        v-model="type"
+        v-model="label"
         value="구매"
         type="radio" />
       <label
@@ -38,11 +46,14 @@
         placeholder="글을 입력하세요."
         @input="insertContent"></textarea>
     </div>
-    <UploadImage />
+    <UploadImage 
+      :origin="image" 
+      @upload="setImage" />
   </div>
 </template>
 
 <script>
+import articleApi from '~/utils/api/article.js'
 import UploadImage from './UploadImage'
 
 export default {
@@ -53,17 +64,67 @@ export default {
   data() {
     return {
       title: '',
-      type: '',
-      content: ''
+      label: '',
+      content: '',
+      image: null,
+      complete: false,
     }
   },
+  computed: {
+    articleData() {
+      return {
+        title: this.title,
+        label: this.label,
+        content: this.content,
+        image: this.image
+      }
+    }
+  },
+  watch: {
+    title() {
+      this.checkForm()
+    },
+    content() {
+      this.checkForm()
+    },
+    label() {
+      this.checkForm()
+    },
+  },
   methods: {
+    async onCreate() {
+      const { data } = await articleApi.createArticle(this.articleData)
+      if (data.code === 200) {
+        this.$router.push({ 
+          name: 'ArticleDetail', 
+          params: { 
+            articleId: data.data.article_id
+          }
+        })
+      } else {
+        alert(data.message)
+      }
+    },
     insertTitle(event) {
       this.title = event.target.value
     },
     insertContent(event) {
       this.content = event.target.value
     },
+    setImage(key) {
+      this.image = key
+    },
+    checkForm() {
+      if (
+        this.title.trim().length > 0 &&
+        this.content.trim().length > 0 &&
+        this.label.trim().length > 0  
+      ) {
+        this.complete = true
+      } else {
+        this.complete = false
+      }
+    }
   }
 }
 </script>
@@ -71,9 +132,47 @@ export default {
 <style lang="scss" scoped>
   .write-form {
     margin-top: 20px;
-
+    width: 90%;
+    max-width: $width-default;
+    margin: 25px auto;
+    
     * {
       box-sizing: border-box;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      h1 {
+        font-size: 18px;
+        font-weight: 700;
+        color: $color-darkgrey;
+      }
+
+      button {
+        padding: 5px 20px;
+
+        font-size: 16px;
+        font-weight: 700;
+        color: #fff;      
+
+        background-color: $color-primary;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        
+        &.disabled {
+          background-color: $color-grey;
+          pointer-events: none;
+        }
+        
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
     }
 
     .input-box {
