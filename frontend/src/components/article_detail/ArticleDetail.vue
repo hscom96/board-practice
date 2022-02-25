@@ -10,7 +10,9 @@
           <div
             v-if="isSameId"
             class="icon-wrapper">
-            <i class="fa-solid fa-pencil"></i>
+            <i
+              class="fa-solid fa-pencil"
+              @click="onClickEditArticleButton"></i>
             <i
               class="fa-solid fa-trash"
               @click="onClickDeteleArticleButton"></i>
@@ -126,6 +128,9 @@ export default {
       .catch((error) => console.log(`게시글 삭제 실패! :${error}`))
       .then(() => alert('게시글이 삭제됐습니다.'))
       .then(() => document.location.href = '/article')
+    },
+    onClickEditArticleButton() {
+      document.location.href = `/edit/${this.articleInfo.article_id}`
     }
   },
 }

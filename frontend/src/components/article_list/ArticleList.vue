@@ -81,7 +81,7 @@ export default {
       }
     },
     onClickWriteButton() {
-      this.$router.push('/write')
+      document.location.href = '/write'
     }
   }
 }
