@@ -13,7 +13,7 @@ public class CommentUpdateRequest {
 
     private Long parentId;
 
-    @NotBlank(message = "content is empty")
+    @NotBlank(message = "내용이 비어 있습니다.")
     private String content;
 
     public Comment toEntity(Long articleId, Long currentUserId, Long commentId) {

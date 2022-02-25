@@ -1,7 +1,12 @@
 package com.example.backend.dto.request;
 
 import com.example.backend.model.Article;
+import com.example.backend.model.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
+@AllArgsConstructor
 public class ArticleUpdateRequest {
 
     private String title;
@@ -10,12 +15,13 @@ public class ArticleUpdateRequest {
 
     private String image;
 
-    public Article toEntity(Long currentUserId){
+    public Article toEntity(Long currentUserId, User user){
         return Article.builder()
             .modifiedById(currentUserId)
             .title(title)
             .content(content)
             .image(image)
-            .modifiedById(currentUserId).build();
+            .modifiedBy(user.getUserName())
+            .build();
     }
 }

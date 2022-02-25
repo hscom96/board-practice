@@ -47,11 +47,17 @@ public class Article extends AuditProperties {
     @Column(name = "comment_cnt")
     private int commentCnt;
 
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "modified_by")
+    private String modifiedBy;
+
     @Builder
     public Article(LocalDateTime createdAt, LocalDateTime modifiedAt,
         Long createdById, Long modifiedById, Long articleId, String title, String content,
         String image, int likeCnt, int sadCnt, int upsetCnt, int viewCnt, String label,
-        int commentCnt) {
+        int commentCnt, String createdBy, String modifiedBy) {
         super(createdAt, modifiedAt, createdById, modifiedById);
         this.articleId = articleId;
         this.title = title;
@@ -63,6 +69,8 @@ public class Article extends AuditProperties {
         this.viewCnt = viewCnt;
         this.label = label;
         this.commentCnt = commentCnt;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
     }
 
     public void increaseReaction(String type) {
@@ -90,7 +98,6 @@ public class Article extends AuditProperties {
         this.content = article.getContent();
         super.updateModifiedById(article.getModifiedById());
     }
-
 }
 
 

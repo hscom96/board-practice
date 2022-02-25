@@ -9,8 +9,10 @@ import com.example.backend.dto.request.CommentCreateRequest;
 import com.example.backend.dto.request.CommentUpdateRequest;
 import com.example.backend.model.Article;
 import com.example.backend.model.Comment;
+import com.example.backend.model.User;
 import com.example.backend.repository.ArticleRepository;
 import com.example.backend.repository.CommentRepository;
+import com.example.backend.repository.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -22,10 +24,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentService {
 
-    private static final int COUNT = 1;
+    private static final int COMMENT_COUNT = 1;
 
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
 
     public CommentListDto read(Long articleId, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
@@ -40,21 +43,27 @@ public class CommentService {
                 throw new CustomException(ResponseCode.POST_NOT_FOUND);
             });
 
+        User user = userRepository.findById(article.getCreatedById())
+            .orElseThrow(() -> {throw new CustomException(ResponseCode.USER_NOT_FOUND);});
+
         Comment comment = commentCreateRequest.toEntity(articleId, currentUserId);
         commentRepository.save(comment);
 
-        article.setCommentCnt(article.getCommentCnt() + COUNT);
+        article.setCommentCnt(article.getCommentCnt() + COMMENT_COUNT);
         articleRepository.save(article);
 
-        return CommentDto.from(comment);
+        return CommentDto.from(comment, user);
     }
 
     public CommentDto update(CommentUpdateRequest commentUpdateRequest, Long articleId, Long currentUserId, Long commentId) {
-        articleRepository.findById(articleId)
+        Article article = articleRepository.findById(articleId)
             .orElseThrow(() -> {
                 throw new CustomException(ResponseCode.POST_NOT_FOUND);
             });
         validateAuth(commentId, currentUserId);
+
+        User user = userRepository.findById(article.getCreatedById())
+            .orElseThrow(() -> {throw new CustomException(ResponseCode.USER_NOT_FOUND);});
 
         Comment updateComment = commentRepository.findById(commentId)
             .orElseThrow(() -> {throw new CustomException(ResponseCode.COMMENT_NOT_FOUND);});
@@ -62,7 +71,7 @@ public class CommentService {
         updateComment.setContent(commentUpdateRequest.getContent());
         commentRepository.save(updateComment);
 
-        return CommentDto.from(updateComment);
+        return CommentDto.from(updateComment, user);
     }
 
     public HttpStatus delete(Long articleId, Long commentId) {
@@ -80,7 +89,7 @@ public class CommentService {
 
         commentRepository.deleteById(deleteComment.getCommentId());
 
-        article.setCommentCnt(article.getCommentCnt() - COUNT);
+        article.setCommentCnt(article.getCommentCnt() - COMMENT_COUNT);
         articleRepository.save(article);
 
         return HttpStatus.OK;
