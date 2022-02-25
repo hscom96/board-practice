@@ -135,7 +135,7 @@ export default {
       return created_at !== modified_at
     },
     onClickArticleListButton() {
-      this.$router.push('/article')
+      this.$router.push('/')
     },
     convertTime(timestamp) {
       return makeTimeString(timestamp)
