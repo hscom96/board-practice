@@ -154,6 +154,17 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+      animation: sizeup .2s ease-out;
+    }
+    @keyframes sizeup {
+      0% {
+        width: 15%;
+        height: 85%;
+      }
+      100% {
+        width: 50%;
+        height: 85%;
+      }
     }
 
     .icon-wrapper {
